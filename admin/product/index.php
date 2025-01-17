@@ -22,8 +22,11 @@ if (isset($_GET['p']) && $_GET['p'] > 0 && is_numeric($_GET['p'])) {
 }
 
 // ici on va faire une requete pour avoir seulement les 50 premier resultat
-$stmt = $db->prepare("SELECT * FROM table_product LIMIT :limit OFFSET :offset");
+$stmt = $db->prepare("SELECT * FROM table_product ORDER BY product_id DESC LIMIT :limit OFFSET :offset ");
+// limit permet de limite le nombre de resultats reçu
 $stmt->bindValue(":limit", $perPage, PDO::PARAM_INT);
+// offset permet de "sauter" des resultats, c'est a dire il commence a partir de X, ici on fait un calcule avec $perPage
+//  pour savoir on commence a combien, et cet ordre est execute par la requete avant le limit !! 
 $stmt->bindValue(":offset", ($page - 1) * $perPage, PDO::PARAM_INT);
 $stmt->execute();
 $recordset = $stmt->fetchAll();
@@ -121,10 +124,12 @@ $recordset = $stmt->fetchAll();
     $stmt = $db->prepare("SELECT COUNT(product_id) AS total FROM table_product");
     $stmt->execute();
     $row = $stmt->fetch();
-    // ici on definit une variable total via le "AS total" de la requette
+    // ici on definit une variable total, elle est egal au contenu lié a la clef total dans le tableau $row
     $total = $row["total"];
-    // ceil arrondis a l'entier au dessus, 
-    $nbPage = ceil($total / $perPage); ?>
+    // on divise le total par le nombre de page qu'on a pour savoir combien il en faut et ceil arrondis a l'entier au dessus
+    $nbPage = ceil($total / $perPage);
+    
+    ?>
 
 
     <ul class="pagination justify-content-center">
@@ -141,7 +146,10 @@ $recordset = $stmt->fetchAll();
 
 
         <?php } ?>
-        <li class="page-item"><a class="page-link" href="index.php?p=<?=($page<$nbPage) ? $page+1:$nbPage?>">›</a></li>
+        <!-- pour naviguer a la page suivante on verifie qu'on est pas sur la derniere page sinon on rajoute +1 a l'id du lien -->
+        <li class="page-item"><a class="page-link" href="index.php?p=<?= ($page < $nbPage) ? $page + 1 : $nbPage ?>">›</a></li>
+
+        <!-- on va directement a la derniere page avec l'id de $nbpage  -->
         <li class="page-item"><a class="page-link" href="index.php?p=<?= $nbPage ?>">»</a></li>
 
 

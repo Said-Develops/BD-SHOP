@@ -21,7 +21,7 @@ if (isset($_POST['sent']) && $_POST['sent'] == 'ok') {
             // On initialise la $_SESSION qui à pour clé 'is_logged' et pour valeur 'oui'.
             $_SESSION['is_logged'] = 'oui';
             // et ensuite on redirige l'utilisateur vers la page index.php.
-            header("Location:index.php");
+            header("Location:product/index.php");
         };
     }
 }
