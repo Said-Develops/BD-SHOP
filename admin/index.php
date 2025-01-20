@@ -1,21 +1,29 @@
 <?php
 // require_once signifie qu'il as besoin du fichier 'protect.php', fichier qui va faire la vérification de l'existance de la variable de session $_SESSION et son contenu. 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/includes/protect.php";
+
 ?>
 
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Page d'accueil</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
-    <h1>Bienvenu sur BD SHOP, pour vous connecter c'est <a href="login.php">ici</a> ! </h1>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis voluptate eveniet numquam quidem eum dolor rem quis nostrum modi! Similique ex rem veritatis tempore beatae? Minus similique ipsum labore cumque!</p>
+<body class="bg-light">
+    <div class="container min-vh-100 d-flex flex-column justify-content-center align-items-center">
+        <h1 class="display-4 mb-4 text-primary">Bienvenue sur BD-SHOP</h1>
+        <p class="lead text-center mb-4">
+            C'est une bibliotheque de livre dans la quelle 
+        </p>
+        <button class="btn btn-primary btn-lg">Commencer</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
