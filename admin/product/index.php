@@ -66,9 +66,8 @@ $recordset = $stmt->fetchAll();
 
 <body>
     <table class="table table-bordered">
+        <div><a class="btn btn-primary" href="logout.php">Deconnexion</a></div>
         <thead>
-            <caption>Liste des produits</caption>
-
             <tr>
                 <div class="titleadd">
                     <th class="display-5" scope="col">Titre du livre</th>
@@ -130,8 +129,7 @@ $recordset = $stmt->fetchAll();
     $nbPage = ceil($total / $perPage);
 
     ?>
-
-    <?php slicePage($page,$nbPage); ?>
+    <?php slicePage($page, $nbPage); ?>
 
 </body>
 
