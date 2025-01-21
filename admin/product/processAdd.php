@@ -5,6 +5,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/includes/fonction.php";
 
 if (isset($_POST["sent"]) && $_POST["sent"] == "ok") {
 
+    var_dump($_FILES['product_image']);
+    move_uploaded_file($_FILES["product_image"]['tmp_name'],$_SERVER['DOCUMENT_ROOT']. "/upload/images/".$_FILES["product_image"]["name"]);
+    exit();
     // Si on a pas de product id, donc c'est a dire on est la pour un ajout et non une modification
     if ($_POST["product_id"] == 0) {
         // On prepare la requete d'ajout a la base de données a partir du formulaire recuperer grace a la method POST

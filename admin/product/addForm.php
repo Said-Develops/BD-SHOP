@@ -145,7 +145,7 @@ $recordset3 = $stmt->fetch();
                 <input value="<?= $product_cartoonist ?>" class="form-control" type="text" name="product_cartoonist">
 
                 <label class="form-label" for="product_image">Image du produit</label>
-                <input value="<?= $product_image ?>" class="form-control" type="text" name="product_image">
+                <input value="<?= $product_image ?>" class="form-control" type="file" name="product_image">
 
                 <label class="form-label" for="product_resume">Resume du produit</label>
                 <input value="<?= $product_resume ?>" class="form-control" type="text" name="product_resume">

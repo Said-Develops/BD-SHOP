@@ -50,30 +50,28 @@ $recordset = $stmt->fetchAll();
             text-align: center;
         }
 
-        .titleadd {
-            position: relative;
-        }
+        /* .titleadd {
+            display: flex;
+            flex-direction: row-reverse;
+            gap: 1em;
+            margin: 20px;
 
-        .btnAdd {
-            position: absolute;
-            right: 52em;
-            top: 1.5em;
-            width: 10%;
-            border: solid black 1px;
-        }
+        } */
     </style>
 </head>
 
 <body>
     <table class="table table-bordered">
-        <div><a class="btn btn-primary" href="logout.php">Deconnexion</a></div>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="titleadd"><a class="btn btn-primary btnAdd" href="addForm.php">Ajouter un item</a><a class="btn btn-primary" href="logout.php">Deconnexion</a></div>
+        </nav>
         <thead>
             <tr>
-                <div class="titleadd">
+                <div>
                     <th class="display-5" scope="col">Titre du livre</th>
                     <!-- ce "faux" bouton est enfaite un lien qui permet de rediriger vers addForm.php sans aucun id 
                      pour qu'il sache qu'on est la juste pour un ajout -->
-                    <a class="btn btn-primary btnAdd" href="addForm.php">Ajouter</a>
+
                 </div>
                 <th class="display-5" scope="col">prix</th>
                 <th class="display-5" scope="col">action</th>
