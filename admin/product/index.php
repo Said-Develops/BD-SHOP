@@ -46,74 +46,87 @@ $recordset = $stmt->fetchAll();
 
     <title>Document</title>
     <style>
-        .display-5 {
-            text-align: center;
-        }
-
-        /* .titleadd {
+        .titleadd {
             display: flex;
             flex-direction: row-reverse;
             gap: 1em;
             margin: 20px;
+        }
 
-        } */
+        /* Style de base de l'élément */
+        .hover-scale-effect {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            position: relative;
+
+            /* Ombre par défaut */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+            /* Transition fluide pour tous les effets */
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Effet au hover */
+        .hover-scale-effect:hover {
+            /* Augmentation de l'échelle */
+            transform: scale(1.05);
+
+            /* Ombre plus prononcée et étendue */
+            box-shadow:
+                0 10px 20px rgba(0, 0, 0, 0.1),
+                0 6px 6px rgba(0, 0, 0, 0.1);
+
+            /* Légère élévation */
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        /* Optional: Ajout d'un effet de brillance */
+        .hover-scale-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg,
+                    transparent 0%,
+                    rgba(255, 255, 255, 0.1) 45%,
+                    rgba(255, 255, 255, 0.2) 50%,
+                    rgba(255, 255, 255, 0.1) 55%,
+                    transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .hover-scale-effect:hover::after {
+            opacity: 1;
+        }
     </style>
 </head>
 
 <body>
-    <table class="table table-bordered">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
             <div class="titleadd"><a class="btn btn-primary btnAdd" href="addForm.php">Ajouter un item</a><a class="btn btn-primary" href="logout.php">Deconnexion</a></div>
-        </nav>
-        <thead>
-            <tr>
-                <div>
-                    <th class="display-5" scope="col">Titre du livre</th>
-                    <!-- ce "faux" bouton est enfaite un lien qui permet de rediriger vers addForm.php sans aucun id 
-                     pour qu'il sache qu'on est la juste pour un ajout -->
+        </div>
+    </nav>
 
+    <div class="d-flex flex-wrap gap-5 justify-content-center">
+        <?php foreach ($recordset as $row) { ?>
+            <div class="card  hovered hover-scale-effect" style="width: 18em;">
+                <img src="../../upload/images/xs_<?= $row["product_image"] ?>" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title"><?= hsc($row["product_name"]); ?></h5>
+                    <p class="card-text">Prix du produit : <?= hsc($row["product_price"]); ?>€</p>
+
+                    <a class="btn btn-warning" href="addForm.php?id=<?= hsc($row['product_id']); ?>">Modifier</a>
+                    <a class="btn btn-danger" href="delete.php?id=<?= hsc($row['product_id']); ?>">Supprimer</a>
                 </div>
-                <th class="display-5" scope="col">prix</th>
-                <th class="display-5" scope="col">action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Ici on a une boucle qui va permettre pour chaque "ligne" du tableau ou "tableau" dans le tableau $recordset
-              de faire une itération  -->
-            <?php foreach ($recordset as $row) { ?>
-                <tr>
-
-                    <!-- ici on utilise hsc qui est une fonction que on a crée et c'est une abréviation de htmlspecialchars qui permet
-                     de sécuriser l'affichage en remplacant les caractéres spéciaux par leurs code html et donc eviter d'afficher du 
-                     script si la BDD est compromise-->
-                    <!-- On utilise $row["product_name"] pour dire que dans le tableau $row on va chercher ce qui est associé à
-                     "product_name" car ce tableau est associatif et qu'il a donc dedans une valeur associé au "product_name". 
-                     Enfin on affiche le contenu avec un ECHO -->
-
-                    <td><?= hsc($row["product_name"]); ?></td>
-
-                    <td><?= hsc($row["product_price"]); ?></td>
-                    <td>
-
-                        <!-- ici on a un "faux" bouton c'est enfaite un lien qui redirige vers notre fichier delete.php avec l'id 
-                         du produit dans le lien pour que quand on arrive sur notre fichier delete.php il puisse recuperer 
-                         l'id via la methode GET et savoir le quel il doit supprimer -->
-                        <a class="btn btn-danger" href="delete.php?id=<?= hsc($row['product_id']); ?>">Supprimer</a>
-
-                        <!-- ici le lien renvoi vers addForm.php qui est notre formulaire pour modifier et ajouter, et il envoi 
-                         aussi l'id du produit via la methode GET c'est a dire dans le lien. Ce qui permet au formulaire de
-                         savoir qu'on est la pour de la modification car on a un ID dans notre methode GET et permet aussi 
-                         de savoir de quel produit on parle-->
-
-                        <!--Et le fait de ne pas avoir d'id du tout permet au fichier addForm.php de savoir qu'on est la 
-                          pour un ajout comme dit plus haut -->
-                        <a class="btn btn-warning" href="addForm.php?id=<?= hsc($row['product_id']); ?>">Modifier</a>
-
-                    </td>
-                </tr>
-            <?php } ?>
-        </tbody>
-    </table>
+            </div>
+        <?php } ?>
+    </div>
 
     <?php
 
