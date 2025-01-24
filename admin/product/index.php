@@ -53,10 +53,10 @@ $recordset = $stmt->fetchAll();
 <body class="bodyProductIndex">
     <nav id="nav" class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <div class="logo"><img src="../../upload/logoipsum-293.svg" alt=""></div>
+            <div class="logo"><a href="index.php"><img src="../../upload/logoipsum-293.svg" alt=""></a></div>
             <div class="navItem">
-                <a class="" href="addForm.php">Ajouter un article</a>
-                <a class="" href="logout.php">Deconnexion</a>
+                <a class="navtxt" href="addForm.php">Ajouter un article</a>
+                <a class="navtxt" href="logout.php">Deconnexion</a>
             </div>
         </div>
     </nav>
