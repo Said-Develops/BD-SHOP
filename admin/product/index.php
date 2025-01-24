@@ -59,8 +59,8 @@ $recordset = $stmt->fetchAll();
 
     <div class="d-flex flex-wrap gap-5 justify-content-center">
         <?php foreach ($recordset as $row) { ?>
-            <div class="card  hovered hover-scale-effect" style="width: 18em;">
-                <img src="../../upload/images/xs_<?= $row["product_image"] ?>" class="card-img-top" alt="...">
+            <div class="card hover-scale-effect">
+                <img src="../../upload/images/xs_<?= $row["product_image"] ?>" class="card-img-top image-hover-effect" alt="...">
                 <div class="card-body">
                     <h5 class="card-title"><?= hsc($row["product_name"]); ?></h5>
                     <p class="card-text">Prix du produit : <?= hsc($row["product_price"]); ?>€</p>
@@ -74,21 +74,21 @@ $recordset = $stmt->fetchAll();
 
 
 
+    <div class="d-flex justify-content-center m-5">
+        <?php
 
-    <?php
+        // on prepare une requete qui va compter le nombre de product ID total dans la table product
+        $stmt = $db->prepare("SELECT COUNT(product_id) AS total FROM table_product");
+        $stmt->execute();
+        $row = $stmt->fetch();
+        // ici on definit une variable total, elle est egal au contenu lié a la clef total dans le tableau $row
+        $total = $row["total"];
+        // on divise le total par le nombre de page qu'on a pour savoir combien il en faut et ceil arrondis a l'entier au dessus
+        $nbPage = ceil($total / $perPage);
 
-    // on prepare une requete qui va compter le nombre de product ID total dans la table product
-    $stmt = $db->prepare("SELECT COUNT(product_id) AS total FROM table_product");
-    $stmt->execute();
-    $row = $stmt->fetch();
-    // ici on definit une variable total, elle est egal au contenu lié a la clef total dans le tableau $row
-    $total = $row["total"];
-    // on divise le total par le nombre de page qu'on a pour savoir combien il en faut et ceil arrondis a l'entier au dessus
-    $nbPage = ceil($total / $perPage);
-
-    ?>
-    <?php slicePage($page, $nbPage); ?>
-
+        ?>
+        <?php slicePage($page, $nbPage); ?>
+    </div>
 </body>
 
 </html>

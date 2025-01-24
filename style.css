@@ -1,3 +1,14 @@
+body {
+
+  height: 100vh;
+  background: #ffffff; /* Fond blanc pour le style manga */
+  background-image: 
+    radial-gradient(circle, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px, 100% 100%;
+  background-repeat: repeat, no-repeat;
+  background-blend-mode: multiply;
+}
+
 .bg-secondary-subtle {
   background-image: url("upload/images/background.jpg");
   background-size: cover;
@@ -36,8 +47,8 @@
   width: 55%;
 }
 
-.bodyProductIndex{
-  margin-top: 150px !important;
+.bodyProductIndex {
+  margin-top: 120px !important;
 }
 
 #nav {
@@ -69,47 +80,40 @@
   padding: 20px;
   cursor: pointer;
   position: relative;
-
-  /* Ombre par défaut */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-  /* Transition fluide pour tous les effets */
   transition: all 0.3s ease-in-out;
+  /* Correction pour les événements de souris */
+  pointer-events: auto;
 }
 
-/* Effet au hover */
 .hover-scale-effect:hover {
-  transform: scale(1.05);
-
+  transform: translateY(-5px) scale(1.05);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
 
-  transform: translateY(-5px) scale(1.05);
+  /* Assurez-vous que les événements de souris restent actifs */
+  pointer-events: auto;
 }
 
-.hover-scale-effect::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 80%;
-  background: linear-gradient(
-    45deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.1) 45%,
-    rgba(255, 255, 255, 0.2) 50%,
-    rgba(255, 255, 255, 0.1) 55%,
-    transparent 100%
-  );
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+.image-hover-effect{
+    position: relative;
+  overflow: hidden;
+}
+
+.image-hover-effect:hover {
+  filter: brightness(110%) contrast(110%) saturate(115%);
+  transition: all 0.3s ease;
+}
+
+img{
+  border: solid grey 2px;
 }
 
 .hover-scale-effect:hover::after {
   opacity: 1;
 }
 
-.btn:hover {
-  border: solid grey 2px;
-  transform: scale(1.05);
+.card {
+  width: 18rem;
 }
+
+
