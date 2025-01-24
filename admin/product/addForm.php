@@ -177,7 +177,7 @@ $recordset3 = $stmt->fetch();
                     <?php }
                     ?>
                 </select>
-
+                <input type="hidden" name="token" value="<?= $_SESSION["token"];?>">
                 <input type="hidden" name="product_id" value="<?= hsc($product_id); ?>">
                 <input type="hidden" value="ok" name="sent">
                 <input id="btnEnregistrer" class="form-control" type="submit" value="Enregistrer">

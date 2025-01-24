@@ -122,7 +122,7 @@ $recordset = $stmt->fetchAll();
                     <p class="card-text">Prix du produit : <?= hsc($row["product_price"]); ?>€</p>
 
                     <a class="btn btn-warning" href="addForm.php?id=<?= hsc($row['product_id']); ?>">Modifier</a>
-                    <a class="btn btn-danger" href="delete.php?id=<?= hsc($row['product_id']); ?>">Supprimer</a>
+                    <a class="btn btn-danger" href="delete.php?id=<?= hsc($row['product_id']); ?>&token=<?= $_SESSION["token"]; ?>">Supprimer</a>
                 </div>
             </div>
         <?php } ?>
