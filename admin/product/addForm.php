@@ -1,7 +1,8 @@
 <?php
+require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/includes/fonction.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/includes/protect.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/includes/connect.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/includes/fonction.php";
+
 
 // Ici on prepare une requete qui va nous permettre de stocker a partir de la table category le nom de la categorie 
 // et son id dans un nouveau tableau qu'on appelle souvent $recordset

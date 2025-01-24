@@ -13,9 +13,9 @@ if (empty($_SESSION["token"])) {
 }
 
 if(isset($_POST["token"]) && $_POST["token"]!=$_SESSION["token"]){
-    header("Location:/admin/login.php");
+    redirect("/admin/login.php");
 }
 
 if(isset($_GET["token"])&& $_GET["token"]!=$_SESSION["token"]){
-    header("Location:/admin/login.php");
+    redirect("/admin/login.php");
 }

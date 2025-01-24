@@ -43,9 +43,10 @@ if (isset($_POST['sent']) && $_POST['sent'] == 'ok') {
     <div class="d-flex align-items-center justify-content-center vh-100 ">
         <form class="bg-light-subtle container w-25 border rounded m-6 connexion" action="login.php" method="POST">
             <div class="col d-flex justify-content-center mt-5 ">
-                <h1>Biblio 📖</h1>
-                <p></p>
+                <h1>BIBLIO 📖 </h1>
+
             </div>
+            <p class="text-center">Un inventaire simple et complet de tous tes livres, accessible n'importe où. </p>
             <label class="form-label" for="admin_mail">Identifiant :</label>
             <input type="email" name="admin_mail" id="admin_mail" class="form-control" required />
             <label class="form-label" for="admin_password">Mot de passe :</label>
@@ -59,6 +60,5 @@ if (isset($_POST['sent']) && $_POST['sent'] == 'ok') {
 
 
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 </html>

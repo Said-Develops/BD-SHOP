@@ -1,8 +1,9 @@
 <?php
 // require_once signifie qu'il as besoin du fichier 'protect.php', fichier qui va faire la vérification de l'existance de la variable de session $_SESSION et son contenu. 
+require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/includes/fonction.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/includes/protect.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/includes/connect.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/includes/fonction.php";
+
 // Ici on prepare une requete pour avoir tous les champ de la table product
 $stmt = $db->prepare("SELECT * FROM table_product");
 // ici on execute la requete preparé
@@ -41,69 +42,12 @@ $recordset = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 
     <title>Document</title>
-    <style>
-        .titleadd {
-            display: flex;
-            flex-direction: row-reverse;
-            gap: 1em;
-            margin: 20px;
-        }
 
-        /* Style de base de l'élément */
-        .hover-scale-effect {
-            background-color: #ffffff;
-            border-radius: 12px;
-            padding: 20px;
-            cursor: pointer;
-            position: relative;
-
-            /* Ombre par défaut */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-            /* Transition fluide pour tous les effets */
-            transition: all 0.3s ease-in-out;
-        }
-
-        /* Effet au hover */
-        .hover-scale-effect:hover {
-            /* Augmentation de l'échelle */
-            transform: scale(1.05);
-
-            /* Ombre plus prononcée et étendue */
-            box-shadow:
-                0 10px 20px rgba(0, 0, 0, 0.1),
-                0 6px 6px rgba(0, 0, 0, 0.1);
-
-            /* Légère élévation */
-            transform: translateY(-5px) scale(1.05);
-        }
-
-        /* Optional: Ajout d'un effet de brillance */
-        /* .hover-scale-effect::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg,
-                    transparent 0%,
-                    rgba(255, 255, 255, 0.1) 45%,
-                    rgba(255, 255, 255, 0.2) 50%,
-                    rgba(255, 255, 255, 0.1) 55%,
-                    transparent 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
-
-        .hover-scale-effect:hover::after {
-            opacity: 1;
-        } */
-    </style>
 </head>
 
 <body>

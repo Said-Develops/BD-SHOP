@@ -26,11 +26,11 @@ function slicePage($page, $nbPage)
             print '<li class="page-item"><a class="page-link" href="index.php?p=' . $page - 1 . '"> ' . ($page - 1) . '</a></li>';
         } else if ($i == 5) {
             print '<li class="page-item"><a class="page-link active" href="index.php?p=' . $page . '"> ' . $page . '</a></li>';
-        } else if ($i == 6 && ($page < 16)) {
+        } else if ($i == 6 && ($page < $nbPage)) {
             print '<li class="page-item"><a class="page-link" href="index.php?p=' . $page + 1 . '"> ' . ($page + 1) . '</a></li>';
-        } else if ($i == 7 && ($page < 15)) {
+        } else if ($i == 7 && ($page < $nbPage-1)) {
             print '<li class="page-item"><a class="page-link" href="index.php?p=' . $page + 2 . '"> ' . ($page + 2) . '</a></li>';
-        } else if ($i == 8 && ($page < 14)) {
+        } else if ($i == 8 && ($page < $nbPage-2)) {
             print '<li class="page-item"><a class="page-link" href="index.php?p=' . $page + 3 . '"> ' . ($page + 3) . '</a></li>';
         } else if ($i == 9) {
             print '<li class="page-item"><a class="page-link" href="index.php?p=' . (($page < $nbPage) ? $page + 1 : $nbPage) . '">›</a></li>';
@@ -105,4 +105,9 @@ function securiseImage($fichier)
             'message' => $e->getMessage()
         ];
     }
+}
+
+function redirect($url) {
+    header("Location:".$url);
+    exit();
 }

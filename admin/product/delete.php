@@ -1,4 +1,6 @@
 <?php
+require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/includes/fonction.php";
+
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/includes/protect.php";
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/includes/connect.php";
