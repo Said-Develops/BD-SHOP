@@ -53,14 +53,20 @@ $recordset = $stmt->fetchAll();
 <body class="bodyProductIndex">
     <nav id="nav" class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <div class="navItem"><a class="btn btn-primary btnAdd" href="addForm.php">Ajouter un item</a><a class="btn btn-primary" href="logout.php">Deconnexion</a></div>
+            <div class="logo"><img src="../../upload/logoipsum-293.svg" alt=""></div>
+            <div class="navItem">
+                <a class="" href="addForm.php">Ajouter un article</a>
+                <a class="" href="logout.php">Deconnexion</a>
+            </div>
         </div>
     </nav>
+
+    <h1 class="h1ProductIndex ">Votre Bibliothèque</h1>
 
     <div class="d-flex flex-wrap gap-5 justify-content-center">
         <?php foreach ($recordset as $row) { ?>
             <div class="card hover-scale-effect">
-                <img src="../../upload/images/xs_<?= $row["product_image"] ?>" class="card-img-top image-hover-effect" alt="...">
+                <img src="../../upload/images/xs_<?= $row["product_image"] ?>" class="card-img-top image-hover-effect imgIndexProduct" alt="...">
                 <div class="card-body">
                     <h5 class="card-title"><?= hsc($row["product_name"]); ?></h5>
                     <p class="card-text">Prix du produit : <?= hsc($row["product_price"]); ?>€</p>
@@ -85,7 +91,6 @@ $recordset = $stmt->fetchAll();
         $total = $row["total"];
         // on divise le total par le nombre de page qu'on a pour savoir combien il en faut et ceil arrondis a l'entier au dessus
         $nbPage = ceil($total / $perPage);
-
         ?>
         <?php slicePage($page, $nbPage); ?>
     </div>

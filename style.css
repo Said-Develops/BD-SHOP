@@ -1,9 +1,11 @@
 body {
-
   height: 100vh;
   background: #ffffff; /* Fond blanc pour le style manga */
-  background-image: 
-    radial-gradient(circle, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+  background-image: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0.1) 1px,
+    transparent 1px
+  );
   background-size: 20px 20px, 100% 100%;
   background-repeat: repeat, no-repeat;
   background-blend-mode: multiply;
@@ -19,6 +21,33 @@ body {
 .connexion {
   outline: 2px solid #6366f1;
   outline-offset: 4px;
+}
+
+.h1ProductIndex {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 36px;
+  font-weight: 300;
+  color: #1a365d;
+  letter-spacing: 1px;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 30px;
+  margin-left: 120px;
+}
+
+.h1ProductIndex::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 10px;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(to right, #1a365d, #3182ce);
+  transition: width 0.3s ease;
+}
+
+.h1ProductIndex:hover::after {
+  width: 85%;
 }
 
 .h1Login {
@@ -69,7 +98,7 @@ body {
 
 .navItem {
   display: flex;
-  flex-direction: row-reverse;
+
   gap: 1em;
   margin: 20px;
 }
@@ -94,8 +123,8 @@ body {
   pointer-events: auto;
 }
 
-.image-hover-effect{
-    position: relative;
+.image-hover-effect {
+  position: relative;
   overflow: hidden;
 }
 
@@ -104,7 +133,7 @@ body {
   transition: all 0.3s ease;
 }
 
-img{
+.imgIndexProduct{
   border: solid grey 2px;
 }
 
@@ -114,6 +143,37 @@ img{
 
 .card {
   width: 18rem;
+  height: 530px !important;
 }
 
+nav a {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: 1px;
+  font-weight: 300;
+  position: relative;
+  text-decoration: none;
+  color: #1a365d;
+  font-weight: 500;
+  padding: 10px 15px;
+  transition: all 0.3s ease;
+}
 
+nav a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background-color: #4a90e2;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  color: #1a365d;
+}
+
+nav a:hover::after {
+  width: 100%;
+  left: 0;
+}
