@@ -50,10 +50,10 @@ $recordset = $stmt->fetchAll();
 
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+<body class="bodyProductIndex">
+    <nav id="nav" class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <div class="titleadd"><a class="btn btn-primary btnAdd" href="addForm.php">Ajouter un item</a><a class="btn btn-primary" href="logout.php">Deconnexion</a></div>
+            <div class="navItem"><a class="btn btn-primary btnAdd" href="addForm.php">Ajouter un item</a><a class="btn btn-primary" href="logout.php">Deconnexion</a></div>
         </div>
     </nav>
 
@@ -71,6 +71,9 @@ $recordset = $stmt->fetchAll();
             </div>
         <?php } ?>
     </div>
+
+
+
 
     <?php
 

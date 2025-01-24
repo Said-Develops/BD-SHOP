@@ -1,8 +1,8 @@
 .bg-secondary-subtle {
   background-image: url("upload/images/background.jpg");
-  background-size: cover; /* L'image couvre tout l'élément */
-  background-position: center; /* Centrage horizontal et vertical */
-  background-repeat: no-repeat; /* Évite de répéter l'image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .connexion {
@@ -10,7 +10,7 @@
   outline-offset: 4px;
 }
 
-h1 {
+.h1Login {
   font-family: "Helvetica Neue", Arial, sans-serif;
   font-size: 36px;
   font-weight: 300;
@@ -21,7 +21,7 @@ h1 {
   display: inline-block;
 }
 
-h1::after {
+.h1Login::after {
   content: "";
   position: absolute;
   bottom: -10px;
@@ -32,18 +32,37 @@ h1::after {
   transition: width 0.3s ease;
 }
 
-h1:hover::after {
+.h1Login:hover::after {
   width: 55%;
 }
 
-.titleadd {
+.bodyProductIndex{
+  margin-top: 150px !important;
+}
+
+#nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  height: 8%;
+}
+
+.navItem {
   display: flex;
   flex-direction: row-reverse;
   gap: 1em;
   margin: 20px;
 }
 
-/* Style de base de l'élément */
 .hover-scale-effect {
   background-color: #ffffff;
   border-radius: 12px;
@@ -60,17 +79,13 @@ h1:hover::after {
 
 /* Effet au hover */
 .hover-scale-effect:hover {
-  /* Augmentation de l'échelle */
   transform: scale(1.05);
 
-  /* Ombre plus prononcée et étendue */
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
 
-  /* Légère élévation */
   transform: translateY(-5px) scale(1.05);
 }
 
-/* Optional: Ajout d'un effet de brillance */
 .hover-scale-effect::after {
   content: "";
   position: absolute;
@@ -98,128 +113,3 @@ h1:hover::after {
   border: solid grey 2px;
   transform: scale(1.05);
 }
-
-    .modal-wrapper {
-      position: relative;
-      display: inline-block;
-      padding: 10px;
-    }
-
-    .modal-checkbox {
-      display: none;
-    }
-
-    /* Style de la vignette avec un effet de survol */
-    .thumbnail-container {
-      position: relative;
-      overflow: hidden;
-      border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .thumbnail-container:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    }
-
-    .thumbnail {
-      cursor: pointer;
-      width: 200px;
-      height: auto;
-      display: block;
-      transition: transform 0.5s ease;
-    }
-
-    .thumbnail-container:hover .thumbnail {
-      transform: scale(1.1);
-    }
-
-    /* Overlay sur la vignette au survol */
-    .thumbnail-container::after {
-      content: '🔍 Agrandir';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      font-family: Arial, sans-serif;
-    }
-
-    .thumbnail-container:hover::after {
-      opacity: 1;
-    }
-
-    /* Le modal avec animation */
-    .modal {
-      display: flex;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0);
-      z-index: 1000;
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(0px);
-    }
-
-    .modal-checkbox:checked ~ .modal {
-      opacity: 1;
-      pointer-events: auto;
-      background-color: rgba(0,0,0,0.9);
-      backdrop-filter: blur(5px);
-    }
-
-    /* L'image en grand avec animation */
-    .modal-content {
-      position: relative;
-      margin: auto;
-      transform: scale(0.7);
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .modal-checkbox:checked ~ .modal .modal-content {
-      transform: scale(1);
-    }
-
-    .modal-content img {
-      max-width: 90vw;
-      max-height: 90vh;
-      border-radius: 8px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-
-    /* Bouton fermer stylisé */
-    .close-button {
-      position: fixed;
-      top: 20px;
-      right: 30px;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: white;
-      color: black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 24px;
-      opacity: 0.8;
-      transition: all 0.3s ease;
-      transform: rotate(0deg);
-    }
-
-    .close-button:hover {
-      opacity: 1;
-      transform: rotate(90deg);
-    }

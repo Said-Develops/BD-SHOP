@@ -21,7 +21,7 @@ if (isset($_POST['sent']) && $_POST['sent'] == 'ok') {
             // On initialise la $_SESSION qui à pour clé 'is_logged' et pour valeur 'oui'.
             $_SESSION['is_logged'] = 'oui';
             // et ensuite on redirige l'utilisateur vers la page index.php.
-            header("Location:product/index.php");
+            header("Location:admin/product/index.php");
         };
     }
 }
@@ -43,7 +43,7 @@ if (isset($_POST['sent']) && $_POST['sent'] == 'ok') {
     <div class="d-flex align-items-center justify-content-center vh-100 ">
         <form class="bg-light-subtle container w-25 border rounded m-6 connexion" action="login.php" method="POST">
             <div class="col d-flex justify-content-center mt-5 ">
-                <h1>BIBLIO 📖 </h1>
+                <h1 class="h1Login">BIBLIO 📖 </h1>
 
             </div>
             <p class="text-center">Un inventaire simple et complet de tous tes livres, accessible n'importe où. </p>
