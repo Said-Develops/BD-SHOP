@@ -83,7 +83,7 @@ $recordset = $stmt->fetchAll();
         }
 
         /* Optional: Ajout d'un effet de brillance */
-        .hover-scale-effect::after {
+        /* .hover-scale-effect::after {
             content: '';
             position: absolute;
             top: 0;
@@ -102,7 +102,7 @@ $recordset = $stmt->fetchAll();
 
         .hover-scale-effect:hover::after {
             opacity: 1;
-        }
+        } */
     </style>
 </head>
 
