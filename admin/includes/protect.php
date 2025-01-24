@@ -6,3 +6,8 @@ if (!isset($_SESSION['is_logged']) || $_SESSION['is_logged'] != 'oui'){
     // si la vérification n'est pas valide, on renvoie vers la page de login
     header("Location:login.php");
 }
+
+if (empty($_SESSION["token"])){
+    // idéalement je complete pour complexifier le chiffrage md5 car la c'est trop simple, par exemple en ajoutant un identifiant unique de l'utilisateur comme le mail
+    $_SESSION['token'] = md5(date("Ymdhis"));
+}

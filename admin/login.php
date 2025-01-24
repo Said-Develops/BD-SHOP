@@ -34,26 +34,27 @@ if (isset($_POST['sent']) && $_POST['sent'] == 'ok') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Utilisation de bootstrap pour la partie front-end -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
+
     <title>Page de login</title>
 </head>
 
 <body class="bg-secondary-subtle">
-    <div class="row">
-        <div class="d-flex align-items-center justify-content-center vh-100">
-            <form class="bg-light-subtle container w-50 border rounded m-6" action="login.php" method="POST">
-                <div class="col d-flex justify-content-center mt-5">
-                    <h1>BD-SHOP</h1>
-                </div>
-                <label class="form-label" for="admin_mail">Email address</label>
-                <input type="email" name="admin_mail" id="admin_mail" class="form-control" required />
-                <label class="form-label" for="admin_password">Password</label>
-                <input type="password" name="admin_password" id="admin_password" class="form-control" required />
-                <input type="hidden" name="sent" value="ok">
-                <div class="row m-1">
-                    <input type="submit" value="Connexion" class="btn btn-primary mt-2 mb-4">
-                </div>
-            </form>
-        </div>
+    <div class="d-flex align-items-center justify-content-center vh-100 ">
+        <form class="bg-light-subtle container w-25 border rounded m-6 connexion" action="login.php" method="POST">
+            <div class="col d-flex justify-content-center mt-5 ">
+                <h1>Biblio 📖</h1>
+                <p></p>
+            </div>
+            <label class="form-label" for="admin_mail">Identifiant :</label>
+            <input type="email" name="admin_mail" id="admin_mail" class="form-control" required />
+            <label class="form-label" for="admin_password">Mot de passe :</label>
+            <input type="password" name="admin_password" id="admin_password" class="form-control" required />
+            <input type="hidden" name="sent" value="ok">
+            <div class="row m-1">
+                <input type="submit" value="Connexion" class="btn btn-primary mt-2 mb-4">
+            </div>
+        </form>
     </div>
 
 
