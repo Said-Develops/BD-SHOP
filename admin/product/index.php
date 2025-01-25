@@ -31,9 +31,6 @@ $stmt->bindValue(":limit", $perPage, PDO::PARAM_INT);
 $stmt->bindValue(":offset", ($page - 1) * $perPage, PDO::PARAM_INT);
 $stmt->execute();
 $recordset = $stmt->fetchAll();
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -44,16 +41,15 @@ $recordset = $stmt->fetchAll();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
-
     <title>Document</title>
-
 </head>
 
 <body class="bodyProductIndex">
     <nav id="nav" class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <div class="logo"><a href="index.php"><img src="../../upload/logoipsum-293.svg" alt=""></a></div>
+            <div class="logo">
+                <a href="index.php"><img src="../../upload/logoipsum-293.svg" alt=""></a>
+            </div>
             <div class="navItem">
                 <a class="navtxt" href="addForm.php">Ajouter un article</a>
                 <a class="navtxt" href="logout.php">Deconnexion</a>
@@ -61,16 +57,20 @@ $recordset = $stmt->fetchAll();
         </div>
     </nav>
 
-    <h1 class="h1ProductIndex ">Votre Bibliothèque</h1>
+    <h1 class="h1ProductIndex">Votre Bibliothèque</h1>
 
     <div class="d-flex flex-wrap gap-5 justify-content-center">
         <?php foreach ($recordset as $row) { ?>
             <div class="card hover-scale-effect">
-                <img src="../../upload/images/xs_<?= $row["product_image"] ?>" class="card-img-top image-hover-effect imgIndexProduct" alt="...">
+                <div class="image-hover-effect">
+                    <a href="details.php?id=<?= hsc($row['product_id']); ?>">
+                        <img src="../../upload/images/xs_<?= $row["product_image"] ?>" class="card-img-top imgIndexProduct" alt="...">
+                        <div class="overlay">DETAILS</div>
+                    </a>
+                </div>
                 <div class="card-body">
                     <h5 class="card-title"><?= hsc($row["product_name"]); ?></h5>
                     <p class="card-text">Prix du produit : <?= hsc($row["product_price"]); ?>€</p>
-
                     <a class="btn btn-warning" href="addForm.php?id=<?= hsc($row['product_id']); ?>">Modifier</a>
                     <a class="btn btn-danger" href="delete.php?id=<?= hsc($row['product_id']); ?>&token=<?= $_SESSION["token"]; ?>">Supprimer</a>
                 </div>
@@ -78,11 +78,8 @@ $recordset = $stmt->fetchAll();
         <?php } ?>
     </div>
 
-
-
     <div class="d-flex justify-content-center m-5">
         <?php
-
         // on prepare une requete qui va compter le nombre de product ID total dans la table product
         $stmt = $db->prepare("SELECT COUNT(product_id) AS total FROM table_product");
         $stmt->execute();

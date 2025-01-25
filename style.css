@@ -1,6 +1,6 @@
 body {
   height: 100vh;
-  background: #ffffff; /* Fond blanc pour le style manga */
+  background: #ffffff;
   background-image: radial-gradient(
     circle,
     rgba(0, 0, 0, 0.1) 1px,
@@ -98,7 +98,6 @@ body {
 
 .navItem {
   display: flex;
-
   gap: 1em;
   margin: 20px;
 }
@@ -111,34 +110,54 @@ body {
   position: relative;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out;
-  /* Correction pour les événements de souris */
-  pointer-events: auto;
 }
 
 .hover-scale-effect:hover {
   transform: translateY(-5px) scale(1.05);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
-
-  /* Assurez-vous que les événements de souris restent actifs */
-  pointer-events: auto;
 }
 
+/* Conteneur de l'image et de l'overlay */
 .image-hover-effect {
   position: relative;
+  display: block;
   overflow: hidden;
+  width: 100%;
+  height: auto;
 }
 
-.image-hover-effect:hover {
-  filter: brightness(110%) contrast(110%) saturate(115%);
+/* Style de l'image */
+.imgIndexProduct {
+  border: solid grey 2px;
+  display: block;
+  width: 100%;
+  height: auto;
   transition: all 0.3s ease;
 }
 
-.imgIndexProduct{
-  border: solid grey 2px;
+/* Overlay avec le texte DETAILS */
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #000000;
+  font-size: 34px;
+  font-weight: bold;
+  text-shadow: 2px 2px 0 #FFF;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 2;
 }
 
-.hover-scale-effect:hover::after {
+/* Animation au survol */
+.image-hover-effect:hover .overlay {
   opacity: 1;
+}
+
+.image-hover-effect:hover .imgIndexProduct {
+  filter: brightness(90%);
 }
 
 .card {
@@ -176,4 +195,12 @@ body {
 .navtxt:hover::after {
   width: 100%;
   left: 0;
+}
+
+.btn-warning:hover {
+  border: solid grey 2px !important;
+}
+
+.btn-danger:hover {
+  border: solid grey 2px !important;
 }
