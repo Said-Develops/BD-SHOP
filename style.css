@@ -1,5 +1,4 @@
 body {
-  height: 100vh;
   background: #ffffff;
   background-image: radial-gradient(
     circle,
@@ -203,4 +202,33 @@ body {
 
 .btn-danger:hover {
   border: solid grey 2px !important;
+}
+
+.back-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid #333;
+    background: white;
+    font-size: 28px;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    line-height: 0;
+    padding-bottom: 4px; /* Ajustement fin pour centrer */
+    margin: 10px 15px;
+}
+
+.back-btn:hover {
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.imgDetails {
+  max-width: 650px;
 }

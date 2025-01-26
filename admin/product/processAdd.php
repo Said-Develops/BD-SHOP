@@ -10,7 +10,10 @@ if (isset($_POST["sent"]) && $_POST["sent"] == "ok") {
     // Petit bout de code qui permet de recuperer les images dans un fichier 
     // var_dump($_FILES['product_image']);
     // move_uploaded_file($_FILES["product_image"]['tmp_name'],$_SERVER['DOCUMENT_ROOT']. "/upload/images/".$_FILES["product_image"]["name"]);
-    // exit();
+    
+
+
+
 
 
     // Si on a pas de product id, donc c'est a dire on est la pour un ajout et non une modification
