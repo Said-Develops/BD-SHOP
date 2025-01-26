@@ -52,7 +52,18 @@ $pagePrecedente = $_GET["p"]
 
             <?php  } ?>
         </ul>
-        <img class="rounded border imgDetails" src="../../upload/images/lg_<?= $dataItem["product_image"] ?>" alt="">
+
+        <?php
+        if (file_exists("../../upload/images/lg_" . $dataItem['product_image'])) { ?>
+            <img class="rounded border imgDetails" src="../../upload/images/lg_<?= $dataItem["product_image"] ?>" alt="">
+        <?php } else { ?>
+            <img class="rounded border imgDetails" src="../../upload/images/<?= $dataItem["product_image"] ?>" alt="">
+
+        <?php } ?>
+
+
+
+
     </div>
 
 

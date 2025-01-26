@@ -10,10 +10,17 @@ if (isset($_POST["sent"]) && $_POST["sent"] == "ok") {
     // Petit bout de code qui permet de recuperer les images dans un fichier 
     // var_dump($_FILES['product_image']);
     // move_uploaded_file($_FILES["product_image"]['tmp_name'],$_SERVER['DOCUMENT_ROOT']. "/upload/images/".$_FILES["product_image"]["name"]);
-    
+    if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] !== UPLOAD_ERR_NO_FILE) {
+        $resultat = securiseImage($_FILES['product_image']);
 
-
-
+        if (!$resultat['success']) {
+            // Si l'upload a échoué, on redirige avec l'erreur
+            header("Location:index.php?error=" . urlencode($resultat['message']));
+            exit();
+        }
+        // Si succès, on utilise le nom du fichier retourné par securiseImage
+        $_POST['product_image'] = $resultat['nom_fichier'];
+    }
 
 
     // Si on a pas de product id, donc c'est a dire on est la pour un ajout et non une modification

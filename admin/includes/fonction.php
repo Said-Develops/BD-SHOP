@@ -89,7 +89,7 @@ function securiseImage($fichier)
         $nomFichier = uniqid() . '.' . $extension;
 
         // Déplacement du fichier
-        $destination = 'uploads/' . $nomFichier; // Assurez-vous que ce dossier existe
+        $destination = $_SERVER['DOCUMENT_ROOT'] . "/upload/images/". $nomFichier; // Assurez-vous que ce dossier existe
         if (!move_uploaded_file($fichier['tmp_name'], $destination)) {
             throw new RuntimeException('Échec du déplacement du fichier.');
         }

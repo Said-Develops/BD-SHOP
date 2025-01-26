@@ -63,8 +63,16 @@ $recordset = $stmt->fetchAll();
         <?php foreach ($recordset as $row) { ?>
             <div class="card hover-scale-effect">
                 <div class="image-hover-effect">
-                    <a href="details.php?id=<?= hsc($row['product_id']); ?>&p=<?=$page?>">
-                        <img src="../../upload/images/xs_<?= $row["product_image"] ?>" class="card-img-top imgIndexProduct" alt="...">
+                    <a href="details.php?id=<?= hsc($row['product_id']); ?>&p=<?= $page ?>">
+
+                        <?php if (file_exists("../../upload/images/xs_" . $row["product_image"])) { ?>
+                            <img src="../../upload/images/xs_<?= $row["product_image"] ?>" class="card-img-top imgIndexProduct" alt="...">
+                        <?php } else { ?>
+                            <img src="../../upload/images/<?= $row["product_image"] ?>" class="card-img-top imgIndexProduct2" alt="...">
+
+
+                        <?php } ?>
+
                         <div class="overlay">DETAILS</div>
                     </a>
                 </div>
