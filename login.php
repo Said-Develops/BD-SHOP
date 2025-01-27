@@ -2,7 +2,7 @@
 // On vérifie si le $_POST['sent'] existe et si le contenu est égal à 'ok'
 if (isset($_POST['sent']) && $_POST['sent'] == 'ok') {
     // var_dump permet d'afficher les informations d'une variable. Très utile pour de débuggage.
-    var_dump($_POST);
+
     // require_once signifie qu'il as besoin du fichier 'connect.php' pour pouvoir continuer. 
     require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/includes/connect.php";
     // Création de la requête SQL pour récupérer les informations utilisateurs qui correspond à l'email qui est inséré.
