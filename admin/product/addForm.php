@@ -89,6 +89,7 @@ $recordset3 = $stmt->fetch();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../style.css">
 
     <title>Document</title>
 </head>
@@ -102,14 +103,17 @@ $recordset3 = $stmt->fetch();
 
 
 
+
     .row {
-        margin: 150px auto !important;
+        margin: 50px auto !important;
         padding: 120px 0px !important;
     }
 </style>
 
 
-<body class="bg-secondary-subtle">
+<body>
+    <a href="index.php" class="back-btn" style="text-decoration: none;">&times;</a>
+
     <div class="row">
         <div class="d-flex align-items-center justify-content-center vh-100">
             <!-- Le action du form va envoyer vers la page processAdd.php, cette page va recevoir le formulaire 
@@ -165,7 +169,7 @@ $recordset3 = $stmt->fetch();
                     <option value=""></option>
                     <!-- ici la jointure faite plus haut va nous permettre de comparer les 4 category ID qui existent au category id du produit via notre variable $product_id -->
                     <?php foreach ($recordset as $categoryNameAndId) { ?>
-                        <option value="<?=$categoryNameAndId["category_id"] ?>" <?=$recordset3 && $categoryNameAndId["category_id"] == $recordset3["product_category_category_id"] ? "selected" : ""; ?>><?=hsc($categoryNameAndId["category_name"])?></option>
+                        <option value="<?= $categoryNameAndId["category_id"] ?>" <?= $recordset3 && $categoryNameAndId["category_id"] == $recordset3["product_category_category_id"] ? "selected" : ""; ?>><?= hsc($categoryNameAndId["category_name"]) ?></option>
                     <?php }
                     ?>
                 </select>
@@ -178,7 +182,7 @@ $recordset3 = $stmt->fetch();
                     <?php }
                     ?>
                 </select>
-                <input type="hidden" name="token" value="<?= $_SESSION["token"];?>">
+                <input type="hidden" name="token" value="<?= $_SESSION["token"]; ?>">
                 <input type="hidden" name="product_id" value="<?= hsc($product_id); ?>">
                 <input type="hidden" value="ok" name="sent">
                 <input id="btnEnregistrer" class="form-control" type="submit" value="Enregistrer">
