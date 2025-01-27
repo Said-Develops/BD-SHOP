@@ -48,7 +48,7 @@ if (isset($_POST['sent']) && $_POST['sent'] == 'ok') {
             </div>
             <p class="text-center">Un inventaire simple et complet de tous tes livres, accessible n'importe où. </p>
             <label class="form-label" for="admin_mail">Identifiant :</label>
-            <input type="email" name="admin_mail" id="admin_mail" class="form-control" required />
+            <input type="text" name="admin_mail" id="admin_mail" class="form-control" required />
             <label class="form-label" for="admin_password">Mot de passe :</label>
             <input type="password" name="admin_password" id="admin_password" class="form-control" required />
             <input type="hidden" name="sent" value="ok">

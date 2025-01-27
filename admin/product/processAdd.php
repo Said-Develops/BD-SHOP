@@ -3,6 +3,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/includes/fonction.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/includes/protect.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/includes/connect.php";
 
+if (!isset($_POST["token"])){
+    redirect('/admin/product/index.php');
+}
 
 if (isset($_POST["sent"]) && $_POST["sent"] == "ok") {
 
