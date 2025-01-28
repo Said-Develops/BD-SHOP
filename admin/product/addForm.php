@@ -105,8 +105,8 @@ $recordset3 = $stmt->fetch();
 
 
     .row {
-        margin: 50px auto !important;
-        padding: 120px 0px !important;
+        margin: 20px auto !important;
+
     }
 </style>
 
@@ -115,7 +115,7 @@ $recordset3 = $stmt->fetch();
     <a href="index.php" class="back-btn" style="text-decoration: none;">&times;</a>
 
     <div class="row">
-        <div class="d-flex align-items-center justify-content-center vh-100">
+        <div class="d-flex align-items-center justify-content-center ">
             <!-- Le action du form va envoyer vers la page processAdd.php, cette page va recevoir le formulaire 
              par la method POST-->
             <form action="processAdd.php" method="POST" enctype="multipart/form-data" class="bg-light-subtle container w-50 border rounded m-6">

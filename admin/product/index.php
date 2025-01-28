@@ -16,12 +16,14 @@ if (isset($_GET['p']) && $_GET['p'] > 0 && is_numeric($_GET['p'])) {
     $page = $_GET['p'];
 }
 
+// on divise la requete sql en plusieurs parties 
 $sqlSELECT = "SELECT * FROM table_product";
+
 
 $sqlWHERE=" WHERE 1=1";
 
 if (!empty($_COOKIE["search"])) {
-    $sqlWHERE .= " AND (product_name LIKE :product_name COLLATE utf8mb3_general_ci OR product_serie LIKE :product_serie COLLATE utf8mb3_general_ci)";
+    $sqlWHERE .= " AND (product_name LIKE :product_name COLLATE utf8mb3_general_ci OR product_serie LIKE :product_serie COLLATE utf8mb3_general_ci OR product_author LIKE :product_author COLLATE utf8mb3_general_ci)";
 }
 if (!empty($_COOKIE["product_type_id"])) {
     $sqlWHERE .= " AND product_type_id=:product_type_id";
@@ -33,6 +35,7 @@ $stmt = $db->prepare($sqlSELECT.$sqlWHERE.$sqlLIMIT);
 if (!empty($_COOKIE["search"])) {
     $stmt->bindValue(":product_name", "%" . $_COOKIE["search"] . "%");
     $stmt->bindValue(":product_serie", "%" . $_COOKIE["search"] . "%");
+    $stmt->bindValue(":product_author", "%" . $_COOKIE["search"] . "%");
 }
 
 if (!empty($_COOKIE['product_type_id'])) {
@@ -130,6 +133,7 @@ $recordsetType = $stmt->fetchAll();
         if (!empty($_COOKIE["search"])) {
             $stmt->bindValue(":product_name", "%" . $_COOKIE["search"] . "%");
             $stmt->bindValue(":product_serie", "%" . $_COOKIE["search"] . "%");
+            $stmt->bindValue(":product_author", "%" . $_COOKIE["search"] . "%");
         }
 
         if (!empty($_COOKIE['product_type_id'])) {

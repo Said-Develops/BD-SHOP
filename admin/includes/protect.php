@@ -12,6 +12,7 @@ if (empty($_SESSION["token"])) {
     $_SESSION['token'] = md5(date("Ymdhis"));
 }
 
+// on verifie qu'il y a un token et qu'il est egal a celui de la session
 if(isset($_POST["token"]) && $_POST["token"]!=$_SESSION["token"]){
     redirect("/admin/login.php");
 }
