@@ -1,5 +1,9 @@
 <?php
+// ici c'est notre fichie ou on va stocker toute nos fonctions pour pouvoir les utiliser ailleurs avec le include 
 
+
+// cette fonction permet d'utiliser htmlspecialchars qui échape les charactéres spéciaux évitant les injections de script, tout en ne plantant pas si le 
+// parametre est vide ce qui n'est pas le cas de la fonction de base 
 function hsc($value)
 {
     if (is_null($value)) {
@@ -9,6 +13,8 @@ function hsc($value)
     }
 }
 
+
+// Notre fonction pour la pagination elle prends en parametre le nombre de page total et la page sur la quelle on est 
 function slicePage($page, $nbPage)
 {
     print '<ul class="pagination justify-content-center">';
@@ -42,6 +48,7 @@ function slicePage($page, $nbPage)
 }
 
 
+// Fonction qui permet de securiser l'upload d'image, donc d'avoir seulement un certain formation, verifier la taille, la restraindre etc...
 function securiseImage($fichier)
 {
     // Définition des types MIME autorisés
@@ -107,6 +114,8 @@ function securiseImage($fichier)
     }
 }
 
+
+// Fonction qui permet de rediriger tout en utilisant exit, ce qui va continuer d'executer le code suivant la fonction
 function redirect($url) {
     header("Location:".$url);
     exit();
