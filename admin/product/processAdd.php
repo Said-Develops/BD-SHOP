@@ -96,7 +96,6 @@ if (isset($_POST["sent"]) && $_POST["sent"] == "ok") {
             product_publisher=:product_publisher, 
             product_author=:product_author,
             product_cartoonist=:product_cartoonist,
-            product_image=:product_image,
             product_resume=:product_resume,
             product_date=:product_date, 
             product_status=:product_status,
@@ -114,7 +113,6 @@ if (isset($_POST["sent"]) && $_POST["sent"] == "ok") {
         $stmt->bindValue(":product_publisher", $_POST["product_publisher"]);
         $stmt->bindValue(":product_author", $_POST["product_author"]);
         $stmt->bindValue(":product_cartoonist", $_POST["product_cartoonist"]);
-        $stmt->bindValue(":product_image", $_POST["product_image"]);
         $stmt->bindValue(":product_resume", $_POST["product_resume"]);
         $stmt->bindValue(":product_date", $_POST["product_date"]);
         $stmt->bindValue(":product_status", $_POST["product_status"]);
@@ -137,7 +135,7 @@ if (isset($_POST["sent"]) && $_POST["sent"] == "ok") {
                                 WHERE product_id =:product_id');
             $stmt->execute([':product_id' => $id]);
             if ($row = $stmt->fetch()) {
-                if ($row['product_image'] != '' && !is_null($row['product_image'])) {
+                if ($row['product_image'] != "" && !is_null($row['product_image'])) {
                     if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/upload/images/' . $row["product_image"])) {
                         unlink($_SERVER['DOCUMENT_ROOT'] . '/upload/images/' . $row["product_image"]);
                     }
@@ -150,6 +148,8 @@ if (isset($_POST["sent"]) && $_POST["sent"] == "ok") {
                             WHERE product_id=:product_id");
         $stmt->execute([":product_image" => $_FILES["product_image"]["name"], ":product_id" => $id]);
     }
+
+
 }
 
 header("Location:index.php");
