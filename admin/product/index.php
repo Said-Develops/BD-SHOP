@@ -20,7 +20,7 @@ if (isset($_GET['p']) && $_GET['p'] > 0 && is_numeric($_GET['p'])) {
 $sqlSELECT = "SELECT * FROM table_product";
 
 
-$sqlWHERE=" WHERE 1=1";
+$sqlWHERE = " WHERE 1=1";
 
 if (!empty($_COOKIE["search"])) {
     $sqlWHERE .= " AND (product_name LIKE :product_name COLLATE utf8mb3_general_ci OR product_serie LIKE :product_serie COLLATE utf8mb3_general_ci OR product_author LIKE :product_author COLLATE utf8mb3_general_ci)";
@@ -29,9 +29,17 @@ if (!empty($_COOKIE["product_type_id"])) {
     $sqlWHERE .= " AND product_type_id=:product_type_id";
 }
 
+if (!empty($_COOKIE["priceMin"])) {
+    $sqlWHERE .= " AND product_price >= :priceMin";
+}
+
+if (!empty($_COOKIE["priceMax"])) {
+    $sqlWHERE .= " AND product_price <= :priceMax";
+}
+
 $sqlLIMIT = " LIMIT :limit OFFSET :offset";
 // ici on va faire une requete pour avoir seulement les 50 premier resultat
-$stmt = $db->prepare($sqlSELECT.$sqlWHERE.$sqlLIMIT);
+$stmt = $db->prepare($sqlSELECT . $sqlWHERE . $sqlLIMIT);
 if (!empty($_COOKIE["search"])) {
     $stmt->bindValue(":product_name", "%" . $_COOKIE["search"] . "%");
     $stmt->bindValue(":product_serie", "%" . $_COOKIE["search"] . "%");
@@ -41,6 +49,15 @@ if (!empty($_COOKIE["search"])) {
 if (!empty($_COOKIE['product_type_id'])) {
     $stmt->bindValue(":product_type_id", $_COOKIE['product_type_id']);
 }
+
+if (!empty($_COOKIE['priceMin'])) {
+    $stmt->bindValue(":priceMin", $_COOKIE["priceMin"]);
+}
+
+if (!empty($_COOKIE['priceMax'])) {
+    $stmt->bindvalue(":priceMax", $_COOKIE["priceMax"]);
+}
+
 // limit permet de limite le nombre de resultats reçu
 $stmt->bindValue(":limit", $perPage, PDO::PARAM_INT);
 // offset permet de "sauter" des resultats, c'est a dire il commence a partir de X, ici on fait un calcule avec $perPage
@@ -88,10 +105,10 @@ $recordsetType = $stmt->fetchAll();
                 </option>
             <?php }
             ?>
-
-
         </select>
-        <input type="text" name="search" value="<?=!empty($_COOKIE["search"])? $_COOKIE["search"]:"";?>">
+        <input type="number" name="priceMin" value="<?= !empty($_COOKIE["priceMin"]) ? $_COOKIE["priceMin"] : ""; ?>">
+        <input type="number" name="priceMax" value="<?= !empty($_COOKIE["priceMax"]) ? $_COOKIE["priceMax"] : ""; ?>">
+        <input type="text" name="search" value="<?= !empty($_COOKIE["search"]) ? $_COOKIE["search"] : ""; ?>">
         <input type="submit" value="recherche">
         <input type="hidden" name="sent" value="ok">
     </form>
@@ -129,7 +146,7 @@ $recordsetType = $stmt->fetchAll();
         <?php
 
         // on prepare une requete qui va compter le nombre de product ID total dans la table product
-        $stmt = $db->prepare("SELECT COUNT(product_id) AS total FROM table_product".$sqlWHERE);
+        $stmt = $db->prepare("SELECT COUNT(product_id) AS total FROM table_product" . $sqlWHERE);
         if (!empty($_COOKIE["search"])) {
             $stmt->bindValue(":product_name", "%" . $_COOKIE["search"] . "%");
             $stmt->bindValue(":product_serie", "%" . $_COOKIE["search"] . "%");
