@@ -153,6 +153,15 @@ $recordsetType = $stmt->fetchAll();
             $stmt->bindValue(":product_author", "%" . $_COOKIE["search"] . "%");
         }
 
+        if (!empty($_COOKIE['priceMin'])) {
+            $stmt->bindValue(":priceMin", $_COOKIE["priceMin"]);
+        }
+
+        if (!empty($_COOKIE['priceMax'])) {
+            $stmt->bindvalue(":priceMax", $_COOKIE["priceMax"]);
+        }
+        
+
         if (!empty($_COOKIE['product_type_id'])) {
             $stmt->bindValue(":product_type_id", $_COOKIE['product_type_id']);
         }
