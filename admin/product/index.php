@@ -4,13 +4,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/includes/fonction.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/includes/protect.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/includes/connect.php";
 
-// Ici on prepare une requete pour avoir tous les champ de la table product
-$stmt = $db->prepare("SELECT * FROM table_product");
-// ici on execute la requete preparé
-$stmt->execute();
-// ici on récupere tout dans un tableau appele souvent "recordset" grace au fetchAll() qui va prendre toute ce vers quoi $stmt
-// pointe et le stocker.
-$recordset = $stmt->fetchAll();
+
 
 // on stock le nombre de valeur affiché par page
 $perPage = 50;
@@ -22,15 +16,40 @@ if (isset($_GET['p']) && $_GET['p'] > 0 && is_numeric($_GET['p'])) {
     $page = $_GET['p'];
 }
 
+$sqlSELECT = "SELECT * FROM table_product";
+
+$sqlWHERE=" WHERE 1=1";
+
+if (!empty($_COOKIE["search"])) {
+    $sqlWHERE .= " AND (product_name LIKE :product_name COLLATE utf8mb3_general_ci OR product_serie LIKE :product_serie COLLATE utf8mb3_general_ci)";
+}
+if (!empty($_COOKIE["product_type_id"])) {
+    $sqlWHERE .= " AND product_type_id=:product_type_id";
+}
+
+$sqlLIMIT = " LIMIT :limit OFFSET :offset";
 // ici on va faire une requete pour avoir seulement les 50 premier resultat
-$stmt = $db->prepare("SELECT * FROM table_product ORDER BY product_id DESC LIMIT :limit OFFSET :offset ");
+$stmt = $db->prepare($sqlSELECT.$sqlWHERE.$sqlLIMIT);
+if (!empty($_COOKIE["search"])) {
+    $stmt->bindValue(":product_name", "%" . $_COOKIE["search"] . "%");
+    $stmt->bindValue(":product_serie", "%" . $_COOKIE["search"] . "%");
+}
+
+if (!empty($_COOKIE['product_type_id'])) {
+    $stmt->bindValue(":product_type_id", $_COOKIE['product_type_id']);
+}
 // limit permet de limite le nombre de resultats reçu
 $stmt->bindValue(":limit", $perPage, PDO::PARAM_INT);
 // offset permet de "sauter" des resultats, c'est a dire il commence a partir de X, ici on fait un calcule avec $perPage
 //  pour savoir on commence a combien, et cet ordre est execute par la requete avant le limit !! 
 $stmt->bindValue(":offset", ($page - 1) * $perPage, PDO::PARAM_INT);
+
 $stmt->execute();
 $recordset = $stmt->fetchAll();
+
+$stmt = $db->prepare("SELECT * FROM table_type ");
+$stmt->execute();
+$recordsetType = $stmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -56,6 +75,23 @@ $recordset = $stmt->fetchAll();
             </div>
         </div>
     </nav>
+
+    <form action="updateSearchCookie.php" method="post">
+        <label class="" for="product_type_id">type du produit</label>
+        <select class="" name="product_type_id" id="product_type_id">
+            <option value="">Choisir</option>
+            <?php foreach ($recordsetType as $row_type) { ?>
+                <option value="<?= hsc($row_type["type_id"]) ?>" <?= (isset($_COOKIE['product_type_id'])) && $_COOKIE["product_type_id"] == $row_type['type_id'] ? "selected" : "" ?>><?= hsc($row_type["type_name"]) ?>
+                </option>
+            <?php }
+            ?>
+
+
+        </select>
+        <input type="text" name="search" value="<?=!empty($_COOKIE["search"])? $_COOKIE["search"]:"";?>">
+        <input type="submit" value="recherche">
+        <input type="hidden" name="sent" value="ok">
+    </form>
 
     <h1 class="h1ProductIndex">Votre Bibliothèque</h1>
 
@@ -88,14 +124,24 @@ $recordset = $stmt->fetchAll();
 
     <div class="d-flex justify-content-center m-5">
         <?php
+
         // on prepare une requete qui va compter le nombre de product ID total dans la table product
-        $stmt = $db->prepare("SELECT COUNT(product_id) AS total FROM table_product");
+        $stmt = $db->prepare("SELECT COUNT(product_id) AS total FROM table_product".$sqlWHERE);
+        if (!empty($_COOKIE["search"])) {
+            $stmt->bindValue(":product_name", "%" . $_COOKIE["search"] . "%");
+            $stmt->bindValue(":product_serie", "%" . $_COOKIE["search"] . "%");
+        }
+
+        if (!empty($_COOKIE['product_type_id'])) {
+            $stmt->bindValue(":product_type_id", $_COOKIE['product_type_id']);
+        }
         $stmt->execute();
         $row = $stmt->fetch();
         // ici on definit une variable total, elle est egal au contenu lié a la clef total dans le tableau $row
         $total = $row["total"];
         // on divise le total par le nombre de page qu'on a pour savoir combien il en faut et ceil arrondis a l'entier au dessus
         $nbPage = ceil($total / $perPage);
+
         ?>
         <?php slicePage($page, $nbPage); ?>
     </div>
