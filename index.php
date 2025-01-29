@@ -14,7 +14,7 @@
 
 <body class="bg-light">
     <div class="container min-vh-100 d-flex flex-column justify-content-center align-items-center">
-        <h1 class="display-4 mb-4 text-primary">Bienvenue sur BD-SHOP</h1>
+        <h1 class="display-4 mb-4 text-primary">Bienvenue sur Biblio</h1>
         <p class="lead text-center mb-4">
             C'est une bibliotheque de livre dans la quelle vous pouvez visualiser votre collection 
         </p>

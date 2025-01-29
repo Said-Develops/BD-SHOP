@@ -20,3 +20,33 @@
 
 
 </ul>
+
+
+
+<!-- filtre index -->
+<div class="divFiltre d-flex gap-2">
+    <h3 class="h3ProductIndex">Filtre :</h3>
+    <div class="d-flex">
+        <form action="updateSearchCookie.php" method="post">
+
+            <label class="" for="product_type_id">Categorie</label>
+            <select class="" name="product_type_id" id="product_type_id">
+                <option value="">Choisir</option>
+                <?php foreach ($recordsetType as $row_type) { ?>
+                    <option value="<?= hsc($row_type["type_id"]) ?>" <?= (isset($_COOKIE['product_type_id'])) && $_COOKIE["product_type_id"] == $row_type['type_id'] ? "selected" : "" ?>><?= hsc($row_type["type_name"]) ?>
+                    </option>
+                <?php }
+                ?>
+            </select>
+
+
+            <label for="price">Prix</label>
+            <input type="number" placeholder="Prix minimum" name="price" value="<?= !empty($_COOKIE["priceMin"]) ? $_COOKIE["priceMin"] : ""; ?>">
+            <input type="number" placeholder="Prix maximum" name="price" value="<?= !empty($_COOKIE["priceMax"]) ? $_COOKIE["priceMax"] : ""; ?>">
+
+            <input type="text" placeholder="Recherche" name="search" value="<?= !empty($_COOKIE["search"]) ? $_COOKIE["search"] : ""; ?>">
+            <input type="submit" value="recherche">
+            <input type="hidden" name="sent" value="ok">
+        </form>
+    </div>
+</div>

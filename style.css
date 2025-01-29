@@ -49,6 +49,23 @@ body {
   width: 85%;
 }
 
+.container{
+    background-color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 80%;
+}
+
+
+
+.h3ProductIndex {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 26px;
+  font-weight: 300;
+  color: #1a365d;
+}
+
 .h1Login {
   font-family: "Helvetica Neue", Arial, sans-serif;
   font-size: 36px;
@@ -76,7 +93,7 @@ body {
 }
 
 .bodyProductIndex {
-  margin-top: 120px !important;
+  margin-top: 6% !important;
 }
 
 #nav {
