@@ -24,6 +24,7 @@ if (isset($_POST['sent']) && $_POST['sent'] == 'ok') {
             header("Location:admin/product/index.php");
         };
     }
+
 }
 ?>
 <!DOCTYPE html>
@@ -41,7 +42,7 @@ if (isset($_POST['sent']) && $_POST['sent'] == 'ok') {
 
 <body class="bg-secondary-subtle">
     <div class="d-flex align-items-center justify-content-center vh-100 ">
-        <form class="bg-light-subtle container w-25 border rounded m-6 connexion" action="login.php" method="POST">
+        <form class="bg-light-subtle container w-50 border rounded m-6 connexion" action="login.php" method="POST">
             <div class="col d-flex justify-content-center mt-5 ">
                 <h1 class="h1Login">BIBLIO 📖 </h1>
 
@@ -54,6 +55,7 @@ if (isset($_POST['sent']) && $_POST['sent'] == 'ok') {
             <input type="hidden" name="sent" value="ok">
             <div class="row m-1">
                 <input type="submit" value="Connexion" class="btn btn-primary mt-2 mb-4">
+                <a href="inscription.php">S'inscrire</a>
             </div>
         </form>
     </div>

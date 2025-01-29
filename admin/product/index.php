@@ -97,7 +97,7 @@ $recordsetType = $stmt->fetchAll();
         </div>
     </nav>
 
-    <div class="container mb-5 w-50">
+    <div class="container mb-5 w-75">
         <form action="updateSearchCookie.php" method="post">
 
             <div class="row g-3 align-items-center">
