@@ -24,7 +24,6 @@ if (isset($_POST['sent']) && $_POST['sent'] == 'ok') {
             header("Location:admin/product/index.php");
         };
     }
-
 }
 ?>
 <!DOCTYPE html>
@@ -41,26 +40,33 @@ if (isset($_POST['sent']) && $_POST['sent'] == 'ok') {
 </head>
 
 <body class="bg-secondary-subtle">
-    <div class="d-flex align-items-center justify-content-center vh-100 ">
-        <form class="bg-light-subtle container w-50 border rounded m-6 connexion" action="login.php" method="POST">
-            <div class="col d-flex justify-content-center mt-5 ">
-                <h1 class="h1Login">BIBLIO 📖 </h1>
+    <div class="d-flex align-items-center justify-content-center min-vh-100">
+        <div class="login-container">
+            <form class="connexion" action="login.php" method="POST">
+                <div class="text-center">
+                    <h1 class="login-title">BIBLIO 📖</h1>
+                    <p class="login-subtitle">Un inventaire simple et complet de tous tes livres, accessible n'importe où.</p>
+                </div>
 
-            </div>
-            <p class="text-center">Un inventaire simple et complet de tous tes livres, accessible n'importe où. </p>
-            <label class="form-label" for="admin_mail">Identifiant :</label>
-            <input type="text" name="admin_mail" id="admin_mail" class="form-control" required />
-            <label class="form-label" for="admin_password">Mot de passe :</label>
-            <input type="password" name="admin_password" id="admin_password" class="form-control" required />
-            <input type="hidden" name="sent" value="ok">
-            <div class="row m-1">
-                <input type="submit" value="Connexion" class="btn btn-primary mt-2 mb-4">
-                <a href="inscription.php">S'inscrire</a>
-            </div>
-        </form>
+                <div class="mb-3">
+                    <label class="form-label" for="admin_mail">Identifiant :</label>
+                    <input type="text" name="admin_mail" id="admin_mail" class="form-control" required />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="admin_password">Mot de passe :</label>
+                    <input type="password" name="admin_password" id="admin_password" class="form-control" required />
+                </div>
+
+                <input type="hidden" name="sent" value="ok">
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Connexion</button>
+                    <a href="inscription.php" class="btn btn-outline-secondary">S'inscrire</a>
+                </div>
+            </form>
+        </div>
     </div>
-
-
 </body>
 
 </html>

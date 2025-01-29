@@ -84,107 +84,117 @@ $recordsetType = $stmt->fetchAll();
     <title>Document</title>
 </head>
 
-<body class="bodyProductIndex">
-    <nav id="nav" class="navbar navbar-expand-lg bg-body-tertiary">
+<body class="bg-light">
+    <!-- Navbar responsive -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <div class="logo">
-                <a href="index.php"><img src="../../upload/logoipsum-293.svg" alt=""></a>
+                <a href="index.php"><img src="../../upload/logoipsum-293.svg" alt="Logo"></a>
             </div>
-            <div class="navItem">
-                <a class="navtxt" href="addForm.php">Ajouter un article</a>
-                <a class="navtxt" href="logout.php">Deconnexion</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <div class="navItem">
+                    <a class="navtxt btn btn-outline-primary" href="addForm.php">Ajouter un article</a>
+                    <a class="navtxt btn btn-outline-danger" href="logout.php">Déconnexion</a>
+                </div>
             </div>
         </div>
     </nav>
 
-    <div class="container mb-5 w-75">
-        <form action="updateSearchCookie.php" method="post">
-
-            <div class="row g-3 align-items-center">
+    <!-- Conteneur de recherche responsive -->
+    <div class="search-container">
+        <form action="updateSearchCookie.php" method="post" class="search-form">
+            <div class="row g-3">
                 <!-- Barre de recherche -->
-                <div class="col-4">
+                <div class="col-12 col-md-4">
                     <div class="input-group">
                         <span class="input-group-text">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
                             </svg>
                         </span>
-                        <input type="text" class="form-control" placeholder="Recherche" name="search" value="<?= !empty($_COOKIE["search"]) ? $_COOKIE["search"] : ""; ?>">
+                        <input type="text" class="form-control" placeholder="Recherche" name="search"
+                            value="<?= !empty($_COOKIE["search"]) ? hsc($_COOKIE["search"]) : ""; ?>">
                     </div>
                 </div>
 
                 <!-- Catégorie -->
-                <div class="col">
+                <div class="col-12 col-md-2">
                     <select class="form-select" name="product_type_id" id="product_type_id">
                         <option value="">Catégorie</option>
-                        <?php foreach ($recordsetType as $row_type) { ?>
-                            <option value="<?= hsc($row_type["type_id"]) ?>" <?= (isset($_COOKIE['product_type_id'])) && $_COOKIE["product_type_id"] == $row_type['type_id'] ? "selected" : "" ?>><?= hsc($row_type["type_name"]) ?>
+                        <?php foreach ($recordsetType as $row_type) : ?>
+                            <option value="<?= hsc($row_type["type_id"]) ?>"
+                                <?= (isset($_COOKIE['product_type_id']) && $_COOKIE["product_type_id"] == $row_type['type_id']) ? "selected" : "" ?>>
+                                <?= hsc($row_type["type_name"]) ?>
                             </option>
-                        <?php }
-                        ?>
+                        <?php endforeach; ?>
                     </select>
                 </div>
 
-                <!-- Prix Min -->
-                <div class="col">
+                <!-- Prix -->
+                <div class="col-12 col-md-2">
                     <div class="input-group">
                         <span class="input-group-text">€</span>
-                        <input type="number" class="form-control" min="0" placeholder="Prix min" name="priceMin" value="<?= !empty($_COOKIE["priceMin"]) ? $_COOKIE["priceMin"] : ""; ?>">
+                        <input type="number" class="form-control" min="0" placeholder="Prix min" name="priceMin"
+                            value="<?= !empty($_COOKIE["priceMin"]) ? hsc($_COOKIE["priceMin"]) : ""; ?>">
                     </div>
                 </div>
-
-                <!-- Prix Max -->
-                <div class="col">
+                <div class="col-12 col-md-2">
                     <div class="input-group">
                         <span class="input-group-text">€</span>
-                        <input type="number" class="form-control" min="0" placeholder="Prix max" name="priceMax" value="<?= !empty($_COOKIE["priceMax"]) ? $_COOKIE["priceMax"] : ""; ?>">
+                        <input type="number" class="form-control" min="0" placeholder="Prix max" name="priceMax"
+                            value="<?= !empty($_COOKIE["priceMax"]) ? hsc($_COOKIE["priceMax"]) : ""; ?>">
                     </div>
                 </div>
 
                 <!-- Bouton -->
-                <div id="btnDiv" class="col">
-                    <input id="btnInDiv" type="submit" class="btn btn-primary" value="Rechercher">
+                <div class="col-12 col-md-2 d-grid">
+                    <button type="submit" class="btn btn-primary">Rechercher</button>
                     <input type="hidden" name="sent" value="ok">
-
                 </div>
             </div>
-
         </form>
-
     </div>
 
+    <h1 class="h1ProductIndex text-center">Votre Bibliothèque</h1>
 
-
-
-    <h1 class="h1ProductIndex">Votre Bibliothèque</h1>
-
-    <div class="d-flex flex-wrap gap-5 justify-content-center">
-        <?php foreach ($recordset as $row) { ?>
-            <div class="card hover-scale-effect">
-                <div class="image-hover-effect">
-                    <a href="details.php?id=<?= hsc($row['product_id']); ?>&p=<?= $page ?>">
-
-                        <?php if (file_exists("../../upload/images/xs_" . $row["product_image"])) { ?>
-                            <img src="../../upload/images/xs_<?= $row["product_image"] ?>" class="card-img-top imgIndexProduct" alt="...">
-                        <?php } else { ?>
-                            <img src="../../upload/images/<?= $row["product_image"] ?>" class="card-img-top imgIndexProduct2" alt="...">
-
-
-                        <?php } ?>
-
-                        <div class="overlay">DETAILS</div>
-                    </a>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title"><?= hsc($row["product_name"]); ?></h5>
-                    <p class="card-text">Prix du produit : <?= hsc($row["product_price"]); ?>€</p>
-                    <a class="btn btn-warning" href="addForm.php?id=<?= hsc($row['product_id']); ?>">Modifier</a>
-                    <a class="btn btn-danger" href="delete.php?id=<?= hsc($row['product_id']); ?>&token=<?= $_SESSION["token"]; ?>">Supprimer</a>
+    <!-- Grille de produits responsive -->
+    <div class="product-grid">
+        <?php foreach ($recordset as $row) : ?>
+            <div class="card-container">
+                <div class="card hover-scale-effect">
+                    <div class="image-hover-effect">
+                        <a href="details.php?id=<?= hsc($row['product_id']); ?>&p=<?= $page ?>">
+                            <?php if (file_exists("../../upload/images/xs_" . $row["product_image"])) : ?>
+                                <img src="../../upload/images/xs_<?= $row["product_image"] ?>"
+                                    class="card-img-top imgIndexProduct" alt="Image du livre">
+                            <?php else : ?>
+                                <img src="../../upload/images/<?= $row["product_image"] ?>"
+                                    class="card-img-top imgIndexProduct2" alt="Image du livre">
+                            <?php endif; ?>
+                            <div class="overlay">DETAILS</div>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"><?= hsc($row["product_name"]); ?></h5>
+                        <p class="card-text">Prix : <?= hsc($row["product_price"]); ?>€</p>
+                        <div class="card-actions">
+                            <a class="btn btn-warning" href="addForm.php?id=<?= hsc($row['product_id']); ?>">
+                                Modifier
+                            </a>
+                            <a class="btn btn-danger" href="delete.php?id=<?= hsc($row['product_id']); ?>&token=<?= $_SESSION["token"]; ?>">
+                                Supprimer
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        <?php } ?>
+        <?php endforeach; ?>
     </div>
 
+    <!-- Pagination -->
     <div class="d-flex justify-content-center m-5">
         <?php
 
@@ -218,6 +228,9 @@ $recordsetType = $stmt->fetchAll();
         ?>
         <?php slicePage($page, $nbPage); ?>
     </div>
+
+ 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

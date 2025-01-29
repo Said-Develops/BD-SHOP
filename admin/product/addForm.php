@@ -83,112 +83,215 @@ $recordset3 = $stmt->fetch();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../style.css">
+    <title>Gestion des produits</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f5f5f5;
+        }
 
-    <title>Document</title>
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 45px;
+            height: 45px;
+            background-color: #ffffff;
+            color: #333;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 28px;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #eee;
+            line-height: 0;
+            padding-bottom: 5px;
+        }
+
+        .back-btn:hover {
+            background-color: #f8f9fa;
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-title {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .form-control {
+            border: 1px solid #e2e8f0;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+        }
+
+        .form-control:focus {
+            border-color: #4a90e2;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        }
+
+        .form-label {
+            color: #4a5568;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .submit-btn {
+            background-color: #4a90e2;
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #357abd;
+            transform: translateY(-1px);
+        }
+
+        .form-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-select {
+            height: 45px;
+        }
+    </style>
 </head>
 
-<style>
-    #btnEnregistrer {
-        margin-top: 20px !important;
-        margin-bottom: 20px ! important;
-        background-color: lightgray;
-    }
+<body class="pb-5">
+    <a href="index.php" class="back-btn">&times;</a>
 
+    <div class="container mt-5">
+        <div class="form-container">
+            <h1 class="form-title"><?= $product_id > 0 ? 'Modifier le produit' : 'Ajouter un nouveau produit' ?></h1>
 
+            <form action="processAdd.php" method="POST" enctype="multipart/form-data">
+                <div class="row">
+                    <!-- Informations principales -->
+                    <div class="col-md-6 form-section">
+                        <label class="form-label" for="product_name">Nom du livre</label>
+                        <input value="<?= $product_name ?>" class="form-control" type="text" name="product_name" id="product_name">
 
+                        <label class="form-label" for="product_serie">Série</label>
+                        <input value="<?= $product_serie ?>" class="form-control" type="text" name="product_serie" id="product_serie">
 
-    .row {
-        margin: 20px auto !important;
+                        <label class="form-label" for="product_volume">Volume</label>
+                        <input value="<?= $product_volume ?>" class="form-control" type="number" name="product_volume" id="product_volume">
 
-    }
-</style>
+                        <label class="form-label" for="product_price">Prix</label>
+                        <div class="input-group mb-3">
+                            <input value="<?= $product_price ?>" class="form-control" type="number" step="0.01" name="product_price" id="product_price">
+                            <span class="input-group-text">€</span>
+                        </div>
+                    </div>
 
+                    <!-- Informations complémentaires -->
+                    <div class="col-md-6 form-section">
+                        <label class="form-label" for="product_author">Auteur</label>
+                        <input value="<?= $product_author ?>" class="form-control" type="text" name="product_author" id="product_author">
 
-<body>
-    <a href="index.php" class="back-btn" style="text-decoration: none;">&times;</a>
+                        <label class="form-label" for="product_publisher">Éditeur</label>
+                        <input value="<?= $product_publisher ?>" class="form-control" type="text" name="product_publisher" id="product_publisher">
 
-    <div class="row">
-        <div class="d-flex align-items-center justify-content-center ">
-            <!-- Le action du form va envoyer vers la page processAdd.php, cette page va recevoir le formulaire 
-             par la method POST-->
-            <form action="processAdd.php" method="POST" enctype="multipart/form-data" class="bg-light-subtle container w-50 border rounded m-6">
-                <div class="col d-flex justify-content-center mt-5">
-                    <h1>Ajout d'un produit</h1>
+                        <label class="form-label" for="product_stock">Stock</label>
+                        <input value="<?= $product_stock ?>" class="form-control" type="number" name="product_stock" id="product_stock">
+
+                        <label class="form-label" for="product_date">Date de sortie</label>
+                        <input value="<?= $product_date ?>" class="form-control" type="date" name="product_date" id="product_date">
+                    </div>
                 </div>
-                <label class="form-label" for="product_name">Nom du livre</label>
-                <input value="<?= $product_name ?>" class="form-control" type="text" name="product_name">
 
-                <label class="form-label" for="product_price">Prix du livre</label>
-                <input value="<?= $product_price ?>" class="form-control" type="number" name="product_price">
+                <!-- Description et résumé -->
+                <div class="form-section">
+                    <label class="form-label" for="product_description">Description</label>
+                    <textarea class="form-control" name="product_description" id="product_description" rows="3"><?= $product_description ?></textarea>
 
-                <label class="form-label" for="product_serie">Serie du produit</label>
-                <input value="<?= $product_serie ?>" class="form-control" type="text" name="product_serie">
+                    <label class="form-label" for="product_resume">Résumé</label>
+                    <textarea class="form-control" name="product_resume" id="product_resume" rows="3"><?= $product_resume ?></textarea>
+                </div>
 
-                <label class="form-label" for="product_volume">Volume du produit</label>
-                <input value="<?= $product_volume ?>" class="form-control" type="number" name="product_volume">
+                <!-- Classifications -->
+                <div class="row">
+                    <div class="col-md-6 form-section">
+                        <label class="form-label" for="category_id">Catégorie</label>
+                        <select class="form-select" name="category_id" id="category_id">
+                            <option value="">Sélectionner une catégorie</option>
+                            <?php foreach ($recordset as $categoryNameAndId) { ?>
+                                <option value="<?= $categoryNameAndId["category_id"] ?>" <?= $recordset3 && $categoryNameAndId["category_id"] == $recordset3["product_category_category_id"] ? "selected" : ""; ?>>
+                                    <?= hsc($categoryNameAndId["category_name"]) ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
 
-                <label class="form-label" for="product_description">Description du produit</label>
-                <input value="<?= $product_description ?>" class="form-control" type="text" name="product_description">
+                    <div class="col-md-6 form-section">
+                        <label class="form-label" for="type_id">Type</label>
+                        <select class="form-select" name="type_id" id="type_id">
+                            <option value="">Sélectionner un type</option>
+                            <?php foreach ($recordset2 as $typeNameAndId) { ?>
+                                <option value="<?= $typeNameAndId["type_id"] ?>" <?= $typeNameAndId["type_id"] == $product_type_id ? "selected" : ""; ?>>
+                                    <?= hsc($typeNameAndId["type_name"]) ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
 
-                <label class="form-label" for="product_stock">Stock du produit</label>
-                <input value="<?= $product_stock ?>" class="form-control" type="number" name="product_stock">
+                <!-- Image et status -->
+                <div class="row">
+                    <div class="col-md-6 form-section">
+                        <label class="form-label" for="product_image">Image</label>
+                        <input class="form-control" type="file" name="product_image" id="product_image">
+                    </div>
 
-                <label class="form-label" for="product_publisher">Publieur du produit</label>
-                <input value="<?= $product_publisher ?>" class="form-control" type="text" name="product_publisher">
+                    <div class="col-md-6 form-section">
+                        <label class="form-label" for="product_status">Statut</label>
+                        <select class="form-select" name="product_status" id="product_status">
+                            <option value="1" <?= $product_status == 1 ? 'selected' : '' ?>>Actif</option>
+                            <option value="0" <?= $product_status == 0 ? 'selected' : '' ?>>Inactif</option>
+                        </select>
+                    </div>
+                </div>
 
-                <label class="form-label" for="product_author">Auteur du produit</label>
-                <input value="<?= $product_author ?>" class="form-control" type="text" name="product_author">
-
-                <label class="form-label" for="product_cartoonist">Cartooneur du produit</label>
-                <input value="<?= $product_cartoonist ?>" class="form-control" type="text" name="product_cartoonist">
-
-                <label class="form-label" for="product_image">Image du produit</label>
-                <input value="<?= $product_image ?>" class="form-control" type="file" name="product_image">
-
-                <label class="form-label" for="product_resume">Resume du produit</label>
-                <input value="<?= $product_resume ?>" class="form-control" type="text" name="product_resume">
-
-                <label class="form-label" for="product_date">Date de sortie du produit</label>
-                <input value="<?= $product_date ?>" class="form-control" type="date" name="product_date">
-
-                <label class="form-label" for="product_status">Status du produit</label>
-                <input value="<?= $product_status ?>" class="form-control" type="number" name="product_status">
-
-
-
-
-                <label class="form-label" for="category_id">Categorie du produit</label>
-                <select class="form-control" name="category_id" id="category_id">
-                    <option value=""></option>
-                    <!-- ici la jointure faite plus haut va nous permettre de comparer les 4 category ID qui existent au category id du produit via notre variable $product_id -->
-                    <?php foreach ($recordset as $categoryNameAndId) { ?>
-                        <option value="<?= $categoryNameAndId["category_id"] ?>" <?= $recordset3 && $categoryNameAndId["category_id"] == $recordset3["product_category_category_id"] ? "selected" : ""; ?>><?= hsc($categoryNameAndId["category_name"]) ?></option>
-                    <?php }
-                    ?>
-                </select>
-
-                <label class=" form-label" for="type_id">Type du produit</label>
-                <select class="form-control" name="type_id" id="type_id">
-                    <option value=""></option>
-                    <?php foreach ($recordset2 as $typeNameAndId) { ?>
-                        <option value="<?= $typeNameAndId["type_id"] ?>" <?= $typeNameAndId["type_id"] == $product_type_id ? "selected" : ""; ?>><?= hsc($typeNameAndId["type_name"]) ?></option>
-                    <?php }
-                    ?>
-                </select>
+                <!-- Champs cachés et bouton de soumission -->
                 <input type="hidden" name="token" value="<?= $_SESSION["token"]; ?>">
                 <input type="hidden" name="product_id" value="<?= hsc($product_id); ?>">
-                <input type="hidden" value="ok" name="sent">
-                <input id="btnEnregistrer" class="form-control" type="submit" value="Enregistrer">
+                <input type="hidden" name="sent" value="ok">
+
+                <button type="submit" class="submit-btn w-100">
+                    <?= $product_id > 0 ? 'Enregistrer les modifications' : 'Ajouter le produit' ?>
+                </button>
             </form>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
