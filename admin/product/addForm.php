@@ -207,7 +207,6 @@ $recordset3 = $stmt->fetch();
                         <label class="form-label" for="product_price">Prix</label>
                         <div class="input-group mb-3">
                             <input value="<?= $product_price ?>" class="form-control" type="number" step="0.01" name="product_price" id="product_price">
-                            <span class="input-group-text">€</span>
                         </div>
                     </div>
 
