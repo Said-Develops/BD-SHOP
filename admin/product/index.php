@@ -37,7 +37,7 @@ if (!empty($_COOKIE["priceMax"])) {
     $sqlWHERE .= " AND product_price <= :priceMax";
 }
 
-$sqlLIMIT = " LIMIT :limit OFFSET :offset";
+$sqlLIMIT = " ORDER BY product_id DESC LIMIT :limit OFFSET :offset";
 // ici on va faire une requete pour avoir seulement les 50 premier resultat
 $stmt = $db->prepare($sqlSELECT . $sqlWHERE . $sqlLIMIT);
 if (!empty($_COOKIE["search"])) {
@@ -63,6 +63,7 @@ $stmt->bindValue(":limit", $perPage, PDO::PARAM_INT);
 // offset permet de "sauter" des resultats, c'est a dire il commence a partir de X, ici on fait un calcule avec $perPage
 //  pour savoir on commence a combien, et cet ordre est execute par la requete avant le limit !! 
 $stmt->bindValue(":offset", ($page - 1) * $perPage, PDO::PARAM_INT);
+
 
 $stmt->execute();
 $recordset = $stmt->fetchAll();
@@ -96,57 +97,58 @@ $recordsetType = $stmt->fetchAll();
         </div>
     </nav>
 
-    <div class="container mb-5">
+    <div class="container mb-5 w-50">
         <form action="updateSearchCookie.php" method="post">
-           
-                <div class="row g-2 align-items-center">
-                    <!-- Barre de recherche -->
-                    <div class="col">
-                        <div class="input-group">
-                            <span class="input-group-text">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                                </svg>
-                            </span>
-                            <input type="text" class="form-control" placeholder="Recherche" name="search" value="<?= !empty($_COOKIE["search"]) ? $_COOKIE["search"] : ""; ?>">
-                        </div>
-                    </div>
 
-                    <!-- Catégorie -->
-                    <div class="col">
-                        <select class="form-select" name="product_type_id" id="product_type_id">
-                            <option value="">Choisir</option>
-                            <?php foreach ($recordsetType as $row_type) { ?>
-                                <option value="<?= hsc($row_type["type_id"]) ?>" <?= (isset($_COOKIE['product_type_id'])) && $_COOKIE["product_type_id"] == $row_type['type_id'] ? "selected" : "" ?>><?= hsc($row_type["type_name"]) ?>
-                                </option>
-                            <?php }
-                            ?>
-                        </select>
-                    </div>
-
-                    <!-- Prix Min -->
-                    <div class="col">
-                        <div class="input-group">
-                            <span class="input-group-text">€</span>
-                            <input type="number" class="form-control" min="0" placeholder="Prix minimum" name="priceMin" value="<?= !empty($_COOKIE["priceMin"]) ? $_COOKIE["priceMin"] : ""; ?>">
-                        </div>
-                    </div>
-
-                    <!-- Prix Max -->
-                    <div class="col">
-                        <div class="input-group">
-                            <span class="input-group-text">€</span>
-                            <input type="number" class="form-control" placeholder="Prix maximum" name="priceMax" value="<?= !empty($_COOKIE["priceMax"]) ? $_COOKIE["priceMax"] : ""; ?>">
-                        </div>
-                    </div>
-
-                    <!-- Bouton -->
-                    <div class="col-auto">
-                        <input type="submit" class="btn btn-primary" value="recherche">
-                        <input type="hidden" name="sent" value="ok">
+            <div class="row g-3 align-items-center">
+                <!-- Barre de recherche -->
+                <div class="col-4">
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                            </svg>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Recherche" name="search" value="<?= !empty($_COOKIE["search"]) ? $_COOKIE["search"] : ""; ?>">
                     </div>
                 </div>
-            
+
+                <!-- Catégorie -->
+                <div class="col">
+                    <select class="form-select" name="product_type_id" id="product_type_id">
+                        <option value="">Catégorie</option>
+                        <?php foreach ($recordsetType as $row_type) { ?>
+                            <option value="<?= hsc($row_type["type_id"]) ?>" <?= (isset($_COOKIE['product_type_id'])) && $_COOKIE["product_type_id"] == $row_type['type_id'] ? "selected" : "" ?>><?= hsc($row_type["type_name"]) ?>
+                            </option>
+                        <?php }
+                        ?>
+                    </select>
+                </div>
+
+                <!-- Prix Min -->
+                <div class="col">
+                    <div class="input-group">
+                        <span class="input-group-text">€</span>
+                        <input type="number" class="form-control" min="0" placeholder="Prix min" name="priceMin" value="<?= !empty($_COOKIE["priceMin"]) ? $_COOKIE["priceMin"] : ""; ?>">
+                    </div>
+                </div>
+
+                <!-- Prix Max -->
+                <div class="col">
+                    <div class="input-group">
+                        <span class="input-group-text">€</span>
+                        <input type="number" class="form-control" min="0" placeholder="Prix max" name="priceMax" value="<?= !empty($_COOKIE["priceMax"]) ? $_COOKIE["priceMax"] : ""; ?>">
+                    </div>
+                </div>
+
+                <!-- Bouton -->
+                <div id="btnDiv" class="col">
+                    <input id="btnInDiv" type="submit" class="btn btn-primary" value="Rechercher">
+                    <input type="hidden" name="sent" value="ok">
+
+                </div>
+            </div>
+
         </form>
 
     </div>

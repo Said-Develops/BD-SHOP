@@ -49,15 +49,13 @@ body {
   width: 85%;
 }
 
-.container{
-    background-color: white;
+.container {
+  background-color: white;
   padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 80%;
+  width: 70% !important;
 }
-
-
 
 .h3ProductIndex {
   font-family: "Helvetica Neue", Arial, sans-serif;
@@ -228,6 +226,14 @@ body {
 
 .btn-danger:hover {
   border: solid grey 2px !important;
+}
+
+#btnDiv{
+  display: flex !important;
+}
+
+#btnInDiv{
+  margin: auto !important;
 }
 
 .back-btn {
