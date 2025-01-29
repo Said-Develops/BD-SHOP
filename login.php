@@ -67,7 +67,7 @@ if (isset($_POST['sent']) && $_POST['sent'] == 'ok') {
 
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-primary">Connexion</button>
-                    <a href="inscription.php" class="btn btn-outline-secondary mb-5">S'inscrire</a>
+                    <a href="inscription.php" class="btn btn-outline-secondary mb-3">S'inscrire</a>
                 </div>
                 <?php if (isset($_POST['sent']) && $loginError) { ?>
                     <div class="alert alert-danger" role="alert">
