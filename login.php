@@ -22,7 +22,12 @@ if (isset($_POST['sent']) && $_POST['sent'] == 'ok') {
             $_SESSION['is_logged'] = 'oui';
             // et ensuite on redirige l'utilisateur vers la page index.php.
             header("Location:admin/product/index.php");
-        };
+            exit();
+        } else {
+            $loginError = true; // Mot de passe incorrect
+        }
+    } else {
+        $loginError = true; // Email non trouvé
     }
 }
 ?>
@@ -62,8 +67,13 @@ if (isset($_POST['sent']) && $_POST['sent'] == 'ok') {
 
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-primary">Connexion</button>
-                    <a href="inscription.php" class="btn btn-outline-secondary">S'inscrire</a>
+                    <a href="inscription.php" class="btn btn-outline-secondary mb-5">S'inscrire</a>
                 </div>
+                <?php if (isset($_POST['sent']) && $loginError) { ?>
+                    <div class="alert alert-danger" role="alert">
+                        Identifiant ou mot de passe incorrect
+                    </div>
+                <?php } ?>
             </form>
         </div>
     </div>
