@@ -86,7 +86,7 @@ $recordsetType = $stmt->fetchAll();
 
 <body class="bg-light">
     <!-- Navbar responsive -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-xl bg-body-tertiary">
         <div class="container-fluid">
             <div class="logo">
                 <a href="index.php"><img src="../../upload/logoipsum-293.svg" alt="Logo"></a>
