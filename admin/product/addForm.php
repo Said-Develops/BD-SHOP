@@ -189,50 +189,50 @@ $recordset3 = $stmt->fetch();
 
     <div class="container mt-5">
         <div class="form-container">
-            <h1 class="form-title"><?= $product_id > 0 ? 'Modifier le produit' : 'Ajouter un nouveau produit' ?></h1>
+            <h1 class="form-title"><?= hsc($product_id) > 0 ? 'Modifier le produit' : 'Ajouter un nouveau produit' ?></h1>
 
             <form action="processAdd.php" method="POST" enctype="multipart/form-data">
                 <div class="row">
                     <!-- Informations principales -->
                     <div class="col-md-6 form-section">
                         <label class="form-label" for="product_name">Nom du livre</label>
-                        <input value="<?= $product_name ?>" class="form-control" type="text" name="product_name" id="product_name">
+                        <input value="<?= hsc($product_name) ?>" class="form-control" type="text" name="product_name" id="product_name">
 
                         <label class="form-label" for="product_serie">Série</label>
-                        <input value="<?= $product_serie ?>" class="form-control" type="text" name="product_serie" id="product_serie">
+                        <input value="<?= hsc($product_serie) ?>" class="form-control" type="text" name="product_serie" id="product_serie">
 
                         <label class="form-label" for="product_volume">Volume</label>
-                        <input value="<?= $product_volume ?>" class="form-control" type="number" name="product_volume" id="product_volume">
+                        <input value="<?= hsc($product_volume) ?>" class="form-control" type="number" name="product_volume" id="product_volume">
 
                         <label class="form-label" for="product_price">Prix</label>
                         <div class="input-group mb-3">
-                            <input value="<?= $product_price ?>" class="form-control" type="number" step="0.01" name="product_price" id="product_price">
+                            <input value="<?= hsc($product_price) ?>" class="form-control" type="number" step="0.01" name="product_price" id="product_price">
                         </div>
                     </div>
 
                     <!-- Informations complémentaires -->
                     <div class="col-md-6 form-section">
                         <label class="form-label" for="product_author">Auteur</label>
-                        <input value="<?= $product_author ?>" class="form-control" type="text" name="product_author" id="product_author">
+                        <input value="<?= hsc($product_author) ?>" class="form-control" type="text" name="product_author" id="product_author">
 
                         <label class="form-label" for="product_publisher">Éditeur</label>
-                        <input value="<?= $product_publisher ?>" class="form-control" type="text" name="product_publisher" id="product_publisher">
+                        <input value="<?= hsc($product_publisher) ?>" class="form-control" type="text" name="product_publisher" id="product_publisher">
 
                         <label class="form-label" for="product_stock">Stock</label>
-                        <input value="<?= $product_stock ?>" class="form-control" type="number" name="product_stock" id="product_stock">
+                        <input value="<?= hsc($product_stock) ?>" class="form-control" type="number" name="product_stock" id="product_stock">
 
                         <label class="form-label" for="product_date">Date de sortie</label>
-                        <input value="<?= $product_date ?>" class="form-control" type="date" name="product_date" id="product_date">
+                        <input value="<?= hsc($product_date) ?>" class="form-control" type="date" name="product_date" id="product_date">
                     </div>
                 </div>
 
                 <!-- Description et résumé -->
                 <div class="form-section">
                     <label class="form-label" for="product_description">Description</label>
-                    <textarea class="form-control" name="product_description" id="product_description" rows="3"><?= $product_description ?></textarea>
+                    <textarea class="form-control" name="product_description" id="product_description" rows="3"><?= hsc($product_description) ?></textarea>
 
                     <label class="form-label" for="product_resume">Résumé</label>
-                    <textarea class="form-control" name="product_resume" id="product_resume" rows="3"><?= $product_resume ?></textarea>
+                    <textarea class="form-control" name="product_resume" id="product_resume" rows="3"><?= hsc($product_resume) ?></textarea>
                 </div>
 
                 <!-- Classifications -->
@@ -242,7 +242,7 @@ $recordset3 = $stmt->fetch();
                         <select class="form-select" name="category_id" id="category_id">
                             <option value="">Sélectionner une catégorie</option>
                             <?php foreach ($recordset as $categoryNameAndId) { ?>
-                                <option value="<?= $categoryNameAndId["category_id"] ?>" <?= $recordset3 && $categoryNameAndId["category_id"] == $recordset3["product_category_category_id"] ? "selected" : ""; ?>>
+                                <option value="<?= hsc($categoryNameAndId["category_id"]) ?>" <?= $recordset3 && $categoryNameAndId["category_id"] == $recordset3["product_category_category_id"] ? "selected" : ""; ?>>
                                     <?= hsc($categoryNameAndId["category_name"]) ?>
                                 </option>
                             <?php } ?>
@@ -254,7 +254,7 @@ $recordset3 = $stmt->fetch();
                         <select class="form-select" name="type_id" id="type_id">
                             <option value="">Sélectionner un type</option>
                             <?php foreach ($recordset2 as $typeNameAndId) { ?>
-                                <option value="<?= $typeNameAndId["type_id"] ?>" <?= $typeNameAndId["type_id"] == $product_type_id ? "selected" : ""; ?>>
+                                <option value="<?= hsc($typeNameAndId["type_id"]) ?>" <?= $typeNameAndId["type_id"] == $product_type_id ? "selected" : ""; ?>>
                                     <?= hsc($typeNameAndId["type_name"]) ?>
                                 </option>
                             <?php } ?>
