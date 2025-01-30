@@ -7,7 +7,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/admin/includes/connect.php";
 
 
 // on stock le nombre de valeur affiché par page
-$perPage = 50;
+$perPage = 48;
 // ici on stock la variable page
 $page = 1;
 
