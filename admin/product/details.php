@@ -90,7 +90,7 @@ $pagePrecedente = $_GET["p"];
 </head>
 
 <body class="bg-light">
-    <a href="index.php?p=<?= $pagePrecedente ?>" class="back-btn">&times;</a>
+    <a href="index.php?p=<?= hsc($pagePrecedente) ?>" class="back-btn">&times;</a>
 
     <div class="container py-5">
         <?php foreach ($recordset as $dataItem) { ?>
@@ -98,57 +98,57 @@ $pagePrecedente = $_GET["p"];
                 <!-- Image du produit -->
                 <div class="col-md-5">
                     <?php if (file_exists("../../upload/images/lg_" . $dataItem['product_image'])) { ?>
-                        <img class="product-image rounded" src="../../upload/images/lg_<?= $dataItem["product_image"] ?>" alt="<?= $dataItem["product_name"] ?>">
+                        <img class="product-image rounded" src="../../upload/images/lg_<?= hsc($dataItem["product_image"]) ?>" alt="<?= hsc($dataItem["product_name"]) ?>">
                     <?php } else { ?>
-                        <img class="product-image rounded" src="../../upload/images/<?= $dataItem["product_image"] ?>" alt="<?= $dataItem["product_name"] ?>">
+                        <img class="product-image rounded" src="../../upload/images/<?= hsc($dataItem["product_image"]) ?>" alt="<?= hsc($dataItem["product_name"]) ?>">
                     <?php } ?>
                 </div>
 
                 <!-- Détails du produit -->
                 <div class="col-md-7">
                     <div class="product-details">
-                        <h2 class="mb-4"><?= $dataItem["product_name"] ?></h2>
+                        <h2 class="mb-4"><?= hsc($dataItem["product_name"]) ?></h2>
 
                         <div class="detail-item">
                             <span class="detail-label">Prix:</span>
-                            <span class="fs-4 text-primary ms-2"><?= $dataItem["product_price"] ?> €</span>
+                            <span class="fs-4 text-primary ms-2"><?= hsc($dataItem["product_price"])?> €</span>
                         </div>
 
                         <div class="detail-item">
                             <span class="detail-label">Série:</span>
-                            <span class="ms-2"><?= $dataItem["product_serie"] ?></span>
+                            <span class="ms-2"><?= hsc($dataItem["product_serie"]) ?></span>
                         </div>
 
                         <div class="detail-item">
                             <span class="detail-label">Volume:</span>
-                            <span class="ms-2"><?= $dataItem["product_volume"] ?></span>
+                            <span class="ms-2"><?= hsc($dataItem["product_volume"]) ?></span>
                         </div>
 
                         <div class="detail-item">
                             <span class="detail-label">Description:</span>
-                            <p class="mt-2"><?= $dataItem["product_description"] ?></p>
+                            <p class="mt-2"><?= hsc($dataItem["product_description"]) ?></p>
                         </div>
 
                         <div class="detail-item">
                             <span class="detail-label">Stock:</span>
-                            <span class="ms-2 <?= $dataItem["product_stock"] > 0 ? 'text-success' : 'text-danger' ?>">
+                            <span class="ms-2 <?= hsc($dataItem["product_stock"]) > 0 ? 'text-success' : 'text-danger' ?>">
                                 <?= $dataItem["product_stock"] ?> unités
                             </span>
                         </div>
 
                         <div class="detail-item">
                             <span class="detail-label">Éditeur:</span>
-                            <span class="ms-2"><?= $dataItem["product_publisher"] ?></span>
+                            <span class="ms-2"><?= hsc($dataItem["product_publisher"]) ?></span>
                         </div>
 
                         <div class="detail-item">
                             <span class="detail-label">Auteur:</span>
-                            <span class="ms-2"><?= $dataItem["product_author"] ?></span>
+                            <span class="ms-2"><?= hsc($dataItem["product_author"]) ?></span>
                         </div>
 
                         <div class="detail-item">
                             <span class="detail-label">Date de sortie:</span>
-                            <span class="ms-2"><?= $dataItem["product_date"] ?></span>
+                            <span class="ms-2"><?= hsc($dataItem["product_date"]) ?></span>
                         </div>
                     </div>
                 </div>

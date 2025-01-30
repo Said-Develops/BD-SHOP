@@ -129,27 +129,40 @@ if (isset($_POST["sent"]) && $_POST["sent"] == "ok") {
     }
 
     if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] == 0) {
-        $id = $_POST['product_id'] > 0 ? $_POST['product_id'] : $productID;
-        if ($_POST['product_id'] > 0) {
-            $stmt = $db->prepare('SELECT product_image FROM table_product 
+        // Appel de la fonction securiseImage
+        $resultat = securiseImage($_FILES['product_image']);
+
+        if ($resultat['success']) {
+            $id = $_POST['product_id'] > 0 ? $_POST['product_id'] : $productID;
+
+            // Suppression de l'ancienne image si elle existe
+            if ($_POST['product_id'] > 0) {
+                $stmt = $db->prepare('SELECT product_image FROM table_product 
                                 WHERE product_id =:product_id');
-            $stmt->execute([':product_id' => $id]);
-            if ($row = $stmt->fetch()) {
-                if ($row['product_image'] != "" && !is_null($row['product_image'])) {
-                    if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/upload/images/' . $row["product_image"])) {
-                        unlink($_SERVER['DOCUMENT_ROOT'] . '/upload/images/' . $row["product_image"]);
+                $stmt->execute([':product_id' => $id]);
+                if ($row = $stmt->fetch()) {
+                    if ($row['product_image'] != "" && !is_null($row['product_image'])) {
+                        if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/upload/images/' . $row["product_image"])) {
+                            unlink($_SERVER['DOCUMENT_ROOT'] . '/upload/images/' . $row["product_image"]);
+                        }
                     }
                 }
             }
-        }
 
-        move_uploaded_file($_FILES["product_image"]['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . "/upload/images/" . $_FILES["product_image"]["name"]);
-        $stmt = $db->prepare("UPDATE table_product SET product_image=:product_image
+            // Mise à jour de la base de données avec le nouveau nom d'image
+            $stmt = $db->prepare("UPDATE table_product SET product_image=:product_image
                             WHERE product_id=:product_id");
-        $stmt->execute([":product_image" => $_FILES["product_image"]["name"], ":product_id" => $id]);
+            $stmt->execute([
+                ":product_image" => $resultat['nom_fichier'],
+                ":product_id" => $id
+            ]);
+        } else {
+            // Gestion des erreurs
+            $_SESSION['error'] = $resultat['message'];
+            header('Location: add.php');
+            exit;
+        }
     }
-
-
 }
 
 header("Location:index.php");

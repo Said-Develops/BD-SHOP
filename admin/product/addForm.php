@@ -79,6 +79,7 @@ $stmt->bindValue(":product_id", $product_id);
 $stmt->execute();
 $recordset3 = $stmt->fetch();
 
+$pagePrecedente = $_GET["p"];
 
 ?>
 
@@ -185,7 +186,7 @@ $recordset3 = $stmt->fetch();
 </head>
 
 <body class="pb-5">
-    <a href="index.php" class="back-btn">&times;</a>
+    <a href="index.php?p=<?= hsc($pagePrecedente) ?>" class="back-btn">&times;</a>
 
     <div class="container mt-5">
         <div class="form-container">

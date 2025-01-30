@@ -181,7 +181,7 @@ $recordsetType = $stmt->fetchAll();
                         <h5 class="card-title"><?= hsc($row["product_name"]); ?></h5>
                         <p class="card-text">Prix : <?= hsc($row["product_price"]); ?>€</p>
                         <div class="card-actions">
-                            <a class="btn btn-warning" href="addForm.php?id=<?= hsc($row['product_id']); ?>">
+                            <a class="btn btn-warning" href="addForm.php?id=<?= hsc($row['product_id']) ?>&p=<?= hsc($_GET['p']) ?>">
                                 Modifier
                             </a>
                             <a class="btn btn-danger" href="delete.php?id=<?= hsc($row['product_id']); ?>&token=<?= $_SESSION["token"]; ?>">
@@ -229,7 +229,7 @@ $recordsetType = $stmt->fetchAll();
         <?php slicePage($page, $nbPage); ?>
     </div>
 
- 
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
